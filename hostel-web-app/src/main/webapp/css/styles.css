@@ -1,0 +1,130 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+body {
+	background: url("../images/bgMainPage.jpg") no-repeat;
+	background-size: 100% auto;
+}
+
+.header_top {
+	display: flex;
+	justify-content: flex-end;
+	padding: 10px 5px 0 5px;
+}
+
+.welcome_message {
+	font-family: 'Roboto', sans-serif;
+	display: flex;
+	justify-content: space-around;
+	width: calc(100vw - 55px);	
+}
+
+.welcome_message h1 {
+	color: white;
+	margin-left: 45px;
+}
+
+.language_change {
+	display: flex;
+	align-items: flex-end;
+	justify-content: space-between;
+	width: 45px;
+}
+
+.language_change .language-button {
+	border: none;
+	background-color: rgba(255,255,255,0.9);
+	width: 22px;
+	height: 20px;
+	font-family: 'Roboto', sans-serif;
+	cursor: pointer;
+}
+
+.header_line {
+	min-height: 65px;
+	background-color: rgba(255,255,255,0.9);
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+}
+
+.header_buttons{
+	display: flex;
+	justify-content: space-between;
+	width: calc(100vw - 130px);
+}
+
+.header_buttons a {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.7px;
+	
+}
+
+.header_buttons a:hover {
+	color: chocolate; 
+}
+
+.logination_registration {
+	display: flex;
+	flex-direction:column;
+	max-height: 45px;
+	justify-content: space-between;
+}
+
+.logination_registration a {
+	display: flex;
+	width: 100px;
+	align-items: center;
+	font-family: 'Roboto', sans-serif;
+}
+
+.logination_registration a:hover {
+	color: chocolate; 
+}
+
+
+label {
+	width: 120px;
+	display: inline-block;
+}
+
+.table{
+	max-width: 80vw;
+	margin: 50px auto;
+	max-height: 400px;
+	overflow: auto;
+	min-height: 65px;
+	background-color: rgba(255,255,255,0.9);
+	padding: 10px;
+	
+	
+}
+.sticky{
+	position: sticky;
+	
+}
+
+table{
+	width: 1050px;
+	table-layout: auto;
+	
+}
+td{
+	text-align: center;
+	
+}
