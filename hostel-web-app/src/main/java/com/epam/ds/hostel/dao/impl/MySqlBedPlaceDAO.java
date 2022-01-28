@@ -27,7 +27,7 @@ public class MySqlBedPlaceDAO implements BedPlaceDAO{
 			+ "FROM bed_places  JOIN bed_place_has_confirmed_request ON bed_place_has_confirmed_request.bed_place_id=bed_places.id "
 			+ "JOIN confirmed_requests ON bed_place_has_confirmed_request.confirmed_request_id=confirmed_requests.booking_request_id "
 			+ "JOIN booking_requests ON booking_requests.id=confirmed_requests.booking_request_id "
-			+ "WHERE (end_date <= ?) OR (start_date >= ?) OR (confirmed_request_id is null)";
+			+ "WHERE (end_date <= ?) OR (start_date >= ?);
 	
 
 	@Override
