@@ -86,7 +86,7 @@ a {
 
 .main > input{
 	
-	width: 145px;
+	width: 195px;
 	height: 30px;
 	align-self: center;
 	border: none;
@@ -117,5 +117,8 @@ a {
 [name = "numberLokers"], [name = "numberPlaces"]{
 	font-size: 15px;
 	
+}
+.buttons_home_back{
+	margin-left: 30px;
 } 
 

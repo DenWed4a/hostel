@@ -13,14 +13,15 @@
 	
 	<fmt:message bundle="${loc}" key="local.button.ru" var="ru_button"/>
 	<fmt:message bundle="${loc}" key="local.button.en" var="en_button"/>
+	<fmt:message bundle="${loc}" key="local.button.loginout" var="login_out"/>
+	<fmt:message bundle="${loc}" key="local.button.my.account" var="my_account"/>
 	<fmt:message bundle="${loc}" key="local.button.registration" var="registration"/>
 	<fmt:message bundle="${loc}" key="local.button.logination" var="login_in"/>
 	<fmt:message bundle="${loc}" key="local.booking" var="booking"/>
 	<fmt:message bundle="${loc}" key="local.contacts" var="contacts"/>
 	<fmt:message bundle="${loc}" key="local.gallery" var="gallery"/>
 	<fmt:message bundle="${loc}" key="local.reviews" var="reviews"/>
-	<fmt:message bundle="${loc}" key="local.button.loginout" var="login_out"/>
-	<fmt:message bundle="${loc}" key="local.button.my.account" var="my_account"/>
+	
 	<fmt:message bundle="${loc}" key="local.button.management" var="management"/>
 	
 	
@@ -68,7 +69,8 @@
 			<a href="Controller?command=GO_TO_BOOKING_PAGE">${booking}</a>
 			<a href="">${gallery}</a>
 			<a href="">${contacts}</a>
-			<a href="">${reviews}</a>	
+			<a href="">${reviews}</a>
+			<a href="Controller?command=GO_TO_TEST">TEST</a>	
 		</div>
 		
 		<div class="logination_registration">

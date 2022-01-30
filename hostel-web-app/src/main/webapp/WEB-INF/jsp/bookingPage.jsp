@@ -9,9 +9,11 @@
 <title>Insert title here</title>
 </head>
 
-
+<script src="https://kit.fontawesome.com/1aa736e549.js" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="css/bookingStyle.css" type="text/css">
 <body>
+
+		
 
 	
 	<fmt:setLocale value="${sessionScope.local}"/>
@@ -25,16 +27,20 @@
 	<fmt:message bundle="${loc}" key="local.button.ru" var="ru_button"/>
 	<fmt:message bundle="${loc}" key="local.button.en" var="en_button"/>
 	<fmt:message bundle="${loc}" key="local.booking.sent.message" var="bs_message"/>
-	<fmt:message bundle="${loc}" key="local.booking.button.book" var="book"/>
+	<fmt:message bundle="${loc}" key="local.booking.calculate" var="calculate"/>
 	
 	
 	
 	<div class="header_top">
 		<div class="welcome_message">
+			
 			<h1>${header_message}</h1>
+		
 		</div>
+			
 	
 		<div class="language_change">
+			
 			<form action="Controller?command=CHANGE_LOCALE" method="post">
 				<input type="hidden" name="local" value="ru"/>
 				<input class="language-button" type="submit"  value="${ru_button}"/>
@@ -46,10 +52,14 @@
 			</form>
 		</div>
 	</div>
+	
+	<div class="buttons_home_back">	
+		<a href="Controller?command=GO_TO_INDEX_PAGE"><i class="fas fa-home"></i></a>
+	</div>
 
 
 
-	<form class="main" method="post" action="Controller?command=SAVE_BOOKING_REQUEST">
+	<form class="main" method="post" action="Controller?command=GO_TO_PROFORMA_INVOICE_PAGE">
 		<div class="dates">	
 			<div class="check_in_date">
 				<label>${check_in}:</label> 
@@ -87,8 +97,11 @@
 				</select>
 			</div>
 	</div>
+	
 
-	<input type="submit" value="${book}">
+	
+	<input type="submit" value="${calculate}"/>
+	 
 	</form>
 	
 	

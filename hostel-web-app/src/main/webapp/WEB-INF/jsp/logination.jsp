@@ -12,7 +12,7 @@
 
 
 
-
+<script src="https://kit.fontawesome.com/1aa736e549.js" crossorigin="anonymous"></script>
 </head>
 
 <fmt:setLocale value="${sessionScope.local}"/>
@@ -32,10 +32,9 @@
 
 
 	<div class="header_top">	
-	
-	<div class="welcome_message">
-		<h1>${button_login}</h1>			
-	</div>
+		<div class="welcome_message">
+			<h1>${button_login}</h1>			
+		</div>
 		
 		<div class="language_change">
 			<form action="Controller?command=CHANGE_LOCALE" method="post">
@@ -50,27 +49,22 @@
 		</div>
 	</div>
 
-
-
-
 	<div class="main">
 		
+		<form class="login_forms" action="Controller" method="post">
+			<input type="hidden" name="command" value="logination">
+			<div class="labels">
+				<label for="1">${login}:</label> 
+				<label for="2">${password}:</label> 
+			</div>
 			
-		
-			<form class="login_forms" action="Controller" method="post">
-				<input type="hidden" name="command" value="logination">
-				<div class="labels">
-					<label for="1">${login}:</label> 
-					<label for="2">${password}:</label> 
-				</div>
-				
-				<div class="inputs">
-					<input id="1" type="text" name="login" value="" /> 
-					<input id="2" type="password" name="password" value="" />
-				</div>
-				
-				<input type="submit" value="${button_login}"></input> 
-			</form>
+			<div class="inputs">
+				<input id="1" type="text" name="login" value="" /> 
+				<input id="2" type="password" name="password" value="" />
+			</div>
+			
+			<input type="submit" value="${button_login}"></input> 
+		</form>
 			
 			
 			<a href="Controller?command=GO_TO_REGISTRATION_PAGE">${button_registration}</a>

@@ -25,6 +25,18 @@
 	<listener>
 		<listener-class>com.epam.ds.listener.AppContextListener</listener-class>
 	</listener>
+	
+	<filter>
+		<filter-name>UrlSaverFilter</filter-name>
+		<filter-class>com.epam.ds.filter.UrlSaverFilter</filter-class>	
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>UrlSaverFilter</filter-name>
+		<servlet-name>Controller</servlet-name>
+	</filter-mapping>
+	
+
 
 
 

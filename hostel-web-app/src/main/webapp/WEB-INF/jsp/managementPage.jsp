@@ -12,15 +12,28 @@
 	<fmt:setBundle basename="local" var="loc"/>
 	<link rel="stylesheet" href="css/styles.css" type="text/css">
 	
-	
+	<fmt:message bundle="${loc}" key="local.button.registration" var="registration"/>
+	<fmt:message bundle="${loc}" key="local.button.logination" var="login_in"/>
+	<fmt:message bundle="${loc}" key="local.button.loginout" var="login_out"/>
+	<fmt:message bundle="${loc}" key="local.button.my.account" var="my_account"/>
 	<fmt:message bundle="${loc}" key="local.button.ru" var="ru_button"/>
 	<fmt:message bundle="${loc}" key="local.button.en" var="en_button"/>
 	<fmt:message bundle="${loc}" key="local.button.list.booking.requests" var="list_booking_requests"/>
-	
+	<fmt:message bundle="${loc}" key="local.users.list" var="users_list"/>
+	<fmt:message bundle="${loc}" key="local.bed.places.list" var="bed_places_list"/>
+	<fmt:message bundle="${loc}" key="local.lockers.list" var="lockers_list"/>
+
+	<script src="https://kit.fontawesome.com/1aa736e549.js" crossorigin="anonymous"></script>
 </head>
 <body>
 
-	<div class="header_top">	
+	<div class="header_top">
+	
+		<div class="buttons_home_back">	
+			<a href="Controller?command=GO_TO_INDEX_PAGE"><i class="fas fa-home"></i></a>
+			<a href="Controller?command=GO_TO_INDEX_PAGE"><i class="fas fa-arrow-alt-circle-left"></i></a>
+		</div>
+		
 		<div class="welcome_message">
 			<c:if test="${not empty role and role eq 'Administrator'}" var="isAdmin">	
 			<h1>Hello, Administrator!</h1>	
@@ -51,13 +64,13 @@
 		</form> -->
 		
 		<div class="header_buttons">
-			<c:if test="${isAdmin}">
+			
 			<a href="Controller?command=GO_TO_BOOKING_REQUESTS_PAGE">${list_booking_requests}</a>
-			</c:if>
-			<a href="Controller?command=GO_TO_BOOKING_PAGE">${booking}</a>
-			<a href="">${gallery}</a>
-			<a href="">${contacts}</a>
-			<a href="">${reviews}</a>	
+			<a href="Controller?command=GO_TO_USER_LIST">${users_list}</a>
+			<a href="">${bed_places_list}</a>
+			<a href="">${lockers_list}</a>
+			
+	
 		</div>
 		
 		<div class="logination_registration">
