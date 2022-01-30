@@ -13,6 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 import com.epam.ds.hostel.dao.BillDAO;
 import com.epam.ds.hostel.dao.BlackListDAO;
+import com.epam.ds.hostel.dao.LockerDAO;
 import com.epam.ds.hostel.dao.UserDAO;
 import com.epam.ds.hostel.dao.connectionpool.ConnectionPool;
 import com.epam.ds.hostel.dao.connectionpool.ConnectionPoolException;
@@ -21,6 +22,7 @@ import com.epam.ds.hostel.dao.impl.MySqlBedPlaceDAO;
 import com.epam.ds.hostel.dao.impl.MySqlBillDAO;
 import com.epam.ds.hostel.dao.impl.MySqlBlackListDAO;
 import com.epam.ds.hostel.dao.impl.MySqlConfirmedRequestDAO;
+import com.epam.ds.hostel.dao.impl.MySqlLockerDAO;
 import com.epam.ds.hostel.dao.impl.MySqlUserDAO;
 import com.epam.ds.hostel.dao.impl.MySqlUserRole;
 import com.epam.ds.hostel.entity.BedPlace;
@@ -29,6 +31,8 @@ import com.epam.ds.hostel.entity.BillStatus;
 import com.epam.ds.hostel.entity.BookingRequest;
 import com.epam.ds.hostel.entity.BookingRequestStatus;
 import com.epam.ds.hostel.entity.ConfirmedRequest;
+import com.epam.ds.hostel.entity.Locker;
+import com.epam.ds.hostel.entity.LockerType;
 import com.epam.ds.hostel.entity.User;
 import com.epam.ds.hostel.entity.UserDetail;
 import com.mysql.cj.util.TestUtils;
@@ -113,17 +117,26 @@ public class Main {
 			System.out.println(resultSet.getInt(1));//+" "+resultSet.getInt(2)+" "+resultSet.getDate(3));
 		}
 		*/
-		
+		ConnectionPool.getInstance().initPoolData();
 		Date date = Date.valueOf("2022-01-19");
 		Date date2 = Date.valueOf("2022-02-02");
 		
-		MySqlBedPlaceDAO dao = new MySqlBedPlaceDAO();
-		List<BedPlace> list =  dao.findFreeBedPlaces(date, date2);
+		/*MySqlBedPlaceDAO dao = new MySqlBedPlaceDAO();
+		List<BedPlace> list =  dao.getFreeBedPlaces(date, date2);
 		
 		for(BedPlace element : list) {
 			System.out.println(element);
-		}
+		}*/
 		
+		
+		LockerDAO dao2 = new MySqlLockerDAO();
+		
+		Locker locker = new Locker();
+		locker.setSize(LockerType.SMALL);
+		dao2.addNewLocker(locker);
+		
+		
+	
 		
 		
 	

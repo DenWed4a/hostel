@@ -74,7 +74,7 @@ public class Main2 {
 		}
 		
 		
-		User user = new User.Builder().login("154542322").idRole(1).status(1).userDetail(detail).build();
+		User user = new User.Builder().login("154542322").status(1).userDetail(detail).build();
 		
 		//dao.saveUser(user);
 		//dao.updateUserDetail(38, user);

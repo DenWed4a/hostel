@@ -65,8 +65,15 @@ public class BookingRequestServiceImpl implements BookingRequestService{
 	}
 
 	@Override
-	public void updateBookingRequest(int id, Criteria criteria) throws ServiceException {
-		// TODO Auto-generated method stub
+	public void updateBookingRequest(BookingRequest bookingRequest) throws ServiceException {
+		DAOFactory factory = DAOFactory.getInstance();
+		BookingRequestDAO bookingRequestDAO = factory.getMySqlBookingRequestDAO();
+		
+		try {
+			bookingRequestDAO.updateBookingRequest(bookingRequest);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
 		
 	}
 
@@ -80,6 +87,20 @@ public class BookingRequestServiceImpl implements BookingRequestService{
 			throw new ServiceException(e);
 		}
 		
+	}
+
+	@Override
+	public BookingRequest getBookingRequestById(int id) throws ServiceException {
+		DAOFactory factory = DAOFactory.getInstance();
+		BookingRequestDAO bookingRequestDAO = factory.getMySqlBookingRequestDAO();
+		BookingRequest bookingRequest;
+		try {
+			bookingRequest = bookingRequestDAO.getBookingRequestById(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		
+		return bookingRequest;
 	}
 
 }

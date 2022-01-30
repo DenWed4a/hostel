@@ -13,7 +13,8 @@ public interface BookingRequestService {
 	List<BookingRequest> findAllBookingRequest() throws ServiceException;
 	List<BookingRequest> findBookingRequest(int userId) throws ServiceException;
 	List<BookingRequest> findAllUnconfirmedRequests() throws ServiceException; 
-	void updateBookingRequest(int id, Criteria criteria) throws ServiceException;
+	void updateBookingRequest(BookingRequest bookingRequest) throws ServiceException;
 	void deleteBookingRequest(int id) throws ServiceException;
+	BookingRequest getBookingRequestById(int id) throws ServiceException;
 
 }

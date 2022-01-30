@@ -4,9 +4,10 @@ import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import com.epam.ds.hostel.bean.builder.BuilderFactory;
+import com.epam.ds.hostel.bean.builder.UserBuilderInstance;
 import com.epam.ds.hostel.entity.User;
 import com.epam.ds.hostel.entity.UserDetail;
+import com.epam.ds.hostel.entity.UserRole;
 
 public class UserCreator {
 	
@@ -19,12 +20,12 @@ public class UserCreator {
 	}
 	
 	public User create(ResultSet resultSet) throws SQLException {
-		User.Builder userBuilder = BuilderFactory.getInstance().getUserBuilder();
+		User.Builder userBuilder = UserBuilderInstance.getInstance().getUserBuilder();
 		int id = resultSet.getInt(1);
 		String login = resultSet.getString(2);
 		// String password = resultSet.getString(3);
 		int status = resultSet.getInt(4);
-		int idRole = resultSet.getInt(5);
+		UserRole idRole = UserRole.values()[resultSet.getInt(5)];
 		int idUser = resultSet.getInt(6);
 		String name = resultSet.getString(7);
 		String surname = resultSet.getString(8);
@@ -37,6 +38,7 @@ public class UserCreator {
 		Date passportIssue = resultSet.getDate(15);
 		Date passportExpire = resultSet.getDate(16);
 		String address = resultSet.getString(17);
+		String image = resultSet.getString(18);
 
 		UserDetail userDetail = new UserDetail();
 		userDetail.setUserId(idUser);
@@ -51,6 +53,7 @@ public class UserCreator {
 		userDetail.setAddress(address);
 		userDetail.setPassportNumber(passporNumber);
 		userDetail.setNationality(nationality);
+		userDetail.setImage(image);
 		User user = userBuilder.id(id).login(login).status(status).idRole(idRole).userDetail(userDetail)
 				.build();
 		userBuilder.clear();

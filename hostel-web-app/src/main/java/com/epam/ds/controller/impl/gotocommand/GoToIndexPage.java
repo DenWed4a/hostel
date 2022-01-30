@@ -17,12 +17,7 @@ public class GoToIndexPage implements Command{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession();
-		String urlString = request.getHeader("referer");
-		
-		System.out.println("HEADER---"+urlString);
-		System.out.println("http://localhost:8080/hostel-web-app/Controller?command=GO_TO_INDEX_PAGE");
-		session.setAttribute("url", "http://localhost:8080/hostel-web-app/Controller?command=GO_TO_INDEX_PAGE");
+
 		
 		
 		

@@ -24,7 +24,7 @@ public class BillCreator {
 		
 		int id = resultSet.getInt(1);
 		double totalAmount = resultSet.getDouble(2);
-		String status = BillStatus.values()[resultSet.getInt(3)].toString().toLowerCase();
+		BillStatus status = BillStatus.values()[resultSet.getInt(3)];
 		int requestId = resultSet.getInt(4);
 		
 		bill.setId(id);

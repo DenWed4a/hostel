@@ -10,8 +10,10 @@ public interface ConfirmedRequestDAO {
 	
 	void addNewRequest(ConfirmedRequest request,  int[] bedPalaceId, int[] lockerId) throws DAOException;
 	List<ConfirmedRequest> findAllRequests () throws DAOException;
+	List<ConfirmedRequest> findActiveRequests() throws DAOException;
 	List<ConfirmedRequest> findConfirmedRequestByAdmin(int admin) throws DAOException;
-	void updateConfirmedRequest(int id, Criteria criteria) throws DAOException;
+	void updateConfirmedRequest(ConfirmedRequest request) throws DAOException;
+	ConfirmedRequest findConfirmedRequestById(int id) throws DAOException;
 	
 	
 

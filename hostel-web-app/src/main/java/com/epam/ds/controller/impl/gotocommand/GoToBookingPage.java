@@ -18,6 +18,7 @@ public class GoToBookingPage implements Command{
 		
 		HttpSession session = request.getSession();
 		String login = (String) session.getAttribute("login");
+	
 		if(login!=null) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(goToBookingPage);
 			dispatcher.forward(request, response);

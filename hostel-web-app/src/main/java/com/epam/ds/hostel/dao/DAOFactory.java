@@ -1,49 +1,65 @@
 package com.epam.ds.hostel.dao;
 
+import com.epam.ds.hostel.dao.impl.MySqlBedPlaceDAO;
 import com.epam.ds.hostel.dao.impl.MySqlBillDAO;
 import com.epam.ds.hostel.dao.impl.MySqlBlackListDAO;
 import com.epam.ds.hostel.dao.impl.MySqlBookingRequestDAO;
+import com.epam.ds.hostel.dao.impl.MySqlConfirmedRequestDAO;
+import com.epam.ds.hostel.dao.impl.MySqlLockerDAO;
 import com.epam.ds.hostel.dao.impl.MySqlUserDAO;
 import com.epam.ds.hostel.dao.impl.MySqlUserRole;
 
 public final class DAOFactory {
 	private static final DAOFactory instance = new DAOFactory();
 
-	private final MySqlUserDAO mySqlUserDAO = new MySqlUserDAO();
+	private final UserDAO mySqlUserDAO = new MySqlUserDAO();
 	private final UserRoleDAO userRoleDAO = new MySqlUserRole();
-	private final MySqlBookingRequestDAO mySqlBookingRequestDAO = new MySqlBookingRequestDAO();
-	private final MySqlBillDAO mySqlBillDAO = new MySqlBillDAO(); 
+	private final BookingRequestDAO mySqlBookingRequestDAO = new MySqlBookingRequestDAO();
+	private final BillDAO mySqlBillDAO = new MySqlBillDAO();
 	private final BlackListDAO blackListDAO = new MySqlBlackListDAO();
-	
-	
-	private DAOFactory() {}
-	
+	private final BedPlaceDAO bedPlaceDAO = new MySqlBedPlaceDAO();
+	private final ConfirmedRequestDAO confirmedRequestDAO = new MySqlConfirmedRequestDAO();
+	private final LockerDAO MySqllockerDAO = new MySqlLockerDAO();
+
+	private DAOFactory() {
+	}
+
 	public static DAOFactory getInstance() {
 		return instance;
 	}
-	
-	public MySqlBookingRequestDAO getMySqlBookingRequestDAO() {
-		return mySqlBookingRequestDAO;
-	}
 
-	public MySqlUserDAO getMySqlUserDAO() {
-		return mySqlUserDAO;
-	}
-	
-	public UserRoleDAO  getUserRoleDAO() {
+	public UserRoleDAO getUserRoleDAO() {
 		return userRoleDAO;
-	}
-
-	public MySqlBillDAO getMySqlBillDAO() {
-		return mySqlBillDAO;
 	}
 
 	public BlackListDAO getBlackListDAO() {
 		return blackListDAO;
 	}
+
+	public BedPlaceDAO getBedPlaceDAO() {
+		return bedPlaceDAO;
+	}
+
+	public UserDAO getMySqlUserDAO() {
+		return mySqlUserDAO;
+	}
+
+	public BookingRequestDAO getMySqlBookingRequestDAO() {
+		return mySqlBookingRequestDAO;
+	}
+
+	public BillDAO getMySqlBillDAO() {
+		return mySqlBillDAO;
+	}
+
+	public ConfirmedRequestDAO getConfirmedRequestDAO() {
+		return confirmedRequestDAO;
+	}
+
+	public LockerDAO getMySqllockerDAO() {
+		return MySqllockerDAO;
+	}
 	
 	
-
-
 
 }

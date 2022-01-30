@@ -8,13 +8,14 @@ public class UserDetail {
 	private String surname;
 	private String phoneNumber;
 	private String email;
-	private double reiting;
+	private double rating;
 	private String passportNumber;
 	private String nationality;
 	private Date dateOfBirth;
 	private Date passportDateOfIssue;
 	private Date passportDateOfExpire;
 	private String address;
+	private String image;
 	
 	public UserDetail() {}
 
@@ -59,11 +60,11 @@ public class UserDetail {
 	}
 
 	public double getReiting() {
-		return reiting;
+		return rating;
 	}
 
 	public void setReiting(double reiting) {
-		this.reiting = reiting;
+		this.rating = reiting;
 	}
 
 	public String getPassportNumber() {
@@ -114,6 +115,14 @@ public class UserDetail {
 		this.address = address;
 	}
 
+	public String getImage() {
+		return image;
+	}
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -121,6 +130,7 @@ public class UserDetail {
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
 		result = prime * result + ((dateOfBirth == null) ? 0 : dateOfBirth.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((image == null) ? 0 : image.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((nationality == null) ? 0 : nationality.hashCode());
 		result = prime * result + ((passportDateOfExpire == null) ? 0 : passportDateOfExpire.hashCode());
@@ -128,7 +138,7 @@ public class UserDetail {
 		result = prime * result + ((passportNumber == null) ? 0 : passportNumber.hashCode());
 		result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
 		long temp;
-		temp = Double.doubleToLongBits(reiting);
+		temp = Double.doubleToLongBits(rating);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
 		result = prime * result + userId;
@@ -158,6 +168,11 @@ public class UserDetail {
 			if (other.email != null)
 				return false;
 		} else if (!email.equals(other.email))
+			return false;
+		if (image == null) {
+			if (other.image != null)
+				return false;
+		} else if (!image.equals(other.image))
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -189,7 +204,7 @@ public class UserDetail {
 				return false;
 		} else if (!phoneNumber.equals(other.phoneNumber))
 			return false;
-		if (Double.doubleToLongBits(reiting) != Double.doubleToLongBits(other.reiting))
+		if (Double.doubleToLongBits(rating) != Double.doubleToLongBits(other.rating))
 			return false;
 		if (surname == null) {
 			if (other.surname != null)
@@ -204,10 +219,12 @@ public class UserDetail {
 	@Override
 	public String toString() {
 		return "UserDetail [userId=" + userId + ", name=" + name + ", surname=" + surname + ", phoneNumber="
-				+ phoneNumber + ", email=" + email + ", reiting=" + reiting + ", passportNumber=" + passportNumber
+				+ phoneNumber + ", email=" + email + ", reiting=" + rating + ", passportNumber=" + passportNumber
 				+ ", nationality=" + nationality + ", dateOfBirth=" + dateOfBirth + ", passportDateOfIssue="
-				+ passportDateOfIssue + ", passportDateOfExpire=" + passportDateOfExpire + ", address=" + address + "]";
+				+ passportDateOfIssue + ", passportDateOfExpire=" + passportDateOfExpire + ", address=" + address
+				+ ", image=" + image + "]";
 	}
 
+	
 	
 }

@@ -19,18 +19,21 @@ import com.epam.ds.hostel.entity.ConfirmedRequest;
 import com.epam.ds.hostel.entity.criteria.Criteria;
 
 public class MySqlConfirmedRequestDAO implements ConfirmedRequestDAO {
-	
+
 	private ConnectionPool cp = ConnectionPool.getInstance();
 
-	private final static String addNewRequest = "INSERT INTO confirmed_requests (bills_id, administrator_id, confirmation_date, status, date_of_payment, booking_request_id) VALUES (?,?,?,?,?,?)";
+	private final static String addNewRequest = "INSERT INTO confirmed_requests (bills_id, administrator_id, confirmation_date, date_of_payment, booking_request_id) VALUES (?,?,?,?,?)";
 	private final static String getAllRequests = "SELECT * FROM confirmed_requests";
-	private final static String findRequestByAdministator = "SELECT * FROM conrirmed_requests WHERE (administrator_id = ?)";
-	private final static String addToPlaceHasRequest = "INSERT INTO bed_place_has_confirmed_request (bed_place_id, booking_request_id) VALUES (?,?)";
-	private final static String addToLockerHasRequest = "INSERT INTO lockers_has_confirmed_request (lokers_id, booking_request_id) VALUES (?,?)";
+	private final static String findRequestByAdministator = "SELECT * FROM confirmed_requests WHERE (administrator_id = ?)";
+	private final static String findRequestById = "SELECT * FROM confirmed_requests WHERE (booking_request_id = ?)";
+	private final static String addToPlaceHasRequest = "INSERT INTO bed_place_has_confirmed_request (bed_place_id, confirmed_request_id) VALUES (?,?)";
+	private final static String addToLockerHasRequest = "INSERT INTO lockers_has_confirmed_requests (lockers_id, confirmed_request_id) VALUES (?,?)";
+	private final static String SET_CONFIRMED_TO_STATUS = "UPDATE  booking_requests SET status = 1 WHERE (id = ?)";
+	private final static String UPDATE_CONFIRMED_REQUEST = "UPDATE confirmed_requests SET status = ? WHERE (booking_request_id = ?)";
 
 	@Override
 	public void addNewRequest(ConfirmedRequest request, int[] bedPlaceId, int[] lockerId) throws DAOException {
-		
+
 		Connection con = null;
 		PreparedStatement pst = null;
 
@@ -41,9 +44,9 @@ public class MySqlConfirmedRequestDAO implements ConfirmedRequestDAO {
 			pst.setInt(1, request.getBillId());
 			pst.setInt(2, request.getAdministratorId());
 			pst.setDate(3, request.getConfirmationDate());
-			pst.setInt(4, request.getStatus());
-			pst.setDate(5, request.getDateOfPayment());
-			pst.setInt(6, request.getId());
+			// pst.setInt(4, request.getStatus().getTitle());
+			pst.setDate(4, request.getDateOfPayment());
+			pst.setInt(5, request.getId());
 			pst.executeUpdate();
 
 			try {
@@ -65,13 +68,24 @@ public class MySqlConfirmedRequestDAO implements ConfirmedRequestDAO {
 			} catch (SQLException e) {
 				throw new DAOException(e);
 			}
+			if (lockerId != null) {
+				pst = con.prepareStatement(addToLockerHasRequest);
+				for (int i = 0; i < lockerId.length; i++) {
+					pst.setInt(1, lockerId[i]);
+					pst.setInt(2, request.getId());
+					pst.executeUpdate();
+				}
 
-			pst = con.prepareStatement(addToLockerHasRequest);
-			for (int i = 0; i < lockerId.length; i++) {
-				pst.setInt(1, lockerId[i]);
-				pst.setInt(2, request.getId());
-				pst.executeUpdate();
+				try {
+					pst.close();
+				} catch (SQLException e) {
+					throw new DAOException(e);
+				}
 			}
+
+			pst = con.prepareStatement(SET_CONFIRMED_TO_STATUS);
+			pst.setInt(1, request.getId());
+			pst.executeUpdate();
 
 			con.commit();
 
@@ -87,8 +101,11 @@ public class MySqlConfirmedRequestDAO implements ConfirmedRequestDAO {
 			throw new DAOException(e);
 		} finally {
 			try {
+				if (con != null) {
+					con.setAutoCommit(true);
+				}
 				cp.closeConnection(con, pst);
-			} catch (ConnectionPoolException e) {
+			} catch (ConnectionPoolException | SQLException e) {
 				throw new DAOException(e);
 			}
 
@@ -97,7 +114,7 @@ public class MySqlConfirmedRequestDAO implements ConfirmedRequestDAO {
 
 	@Override
 	public List<ConfirmedRequest> findAllRequests() throws DAOException {
-	
+
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet resultSet = null;
@@ -131,7 +148,7 @@ public class MySqlConfirmedRequestDAO implements ConfirmedRequestDAO {
 	@Override
 	public List<ConfirmedRequest> findConfirmedRequestByAdmin(int adminId) throws DAOException {
 		List<ConfirmedRequest> result = new ArrayList<>();
-	
+
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet resultSet = null;
@@ -164,26 +181,18 @@ public class MySqlConfirmedRequestDAO implements ConfirmedRequestDAO {
 	}
 
 	@Override
-	public void updateConfirmedRequest(int id, Criteria criteria) throws DAOException {
-	
+	public void updateConfirmedRequest(ConfirmedRequest cRequest) throws DAOException {
 		Connection con = null;
 		PreparedStatement pst = null;
-		String request;
-		StringBuilder stringBuilder = new StringBuilder();
-		stringBuilder.append("UPDATE CONFIRMED_REQUESTS SET ");
-		for (Map.Entry<String, Object> pair : criteria.getCriteria().entrySet()) {
-			stringBuilder.append(stringBuilder.append(pair.getKey()).append("=").append(pair.getValue()).append(","));
-		}
-		stringBuilder.delete(stringBuilder.length() - 1, stringBuilder.length());
-		stringBuilder.append(" WHERE ADMINIST = ").append(id);
-		request = stringBuilder.toString();
+		int status = cRequest.getStatus().getTitle();
+
 		try {
 			con = cp.takeConnection();
-			pst = con.prepareStatement(request);
+			pst = con.prepareStatement(UPDATE_CONFIRMED_REQUEST);
+			pst.setInt(1, status);
+			pst.setInt(2, cRequest.getId());
 			pst.executeUpdate();
-		} catch (SQLException e) {
-			throw new DAOException(e);
-		} catch (ConnectionPoolException e) {
+		} catch (ConnectionPoolException | SQLException e) {
 			throw new DAOException(e);
 		} finally {
 			try {
@@ -194,6 +203,41 @@ public class MySqlConfirmedRequestDAO implements ConfirmedRequestDAO {
 
 		}
 
+	}
+
+	@Override
+	public ConfirmedRequest findConfirmedRequestById(int id) throws DAOException {
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet resultSet = null;
+		ConfirmedRequest result;
+
+		try {
+			con = cp.takeConnection();
+			pst = con.prepareStatement(findRequestById);
+			pst.setInt(1, id);
+			resultSet = pst.executeQuery();
+			resultSet.next();
+			result = ConfirmedRequestCreator.getInstance().create(resultSet);
+
+		} catch (ConnectionPoolException | SQLException e) {
+			throw new DAOException(e);
+		} finally {
+			try {
+				cp.closeConnection(con, pst, resultSet);
+			} catch (ConnectionPoolException e) {
+				throw new DAOException(e);
+			}
+
+		}
+
+		return result;
+	}
+
+	@Override
+	public List<ConfirmedRequest> findActiveRequests() throws DAOException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

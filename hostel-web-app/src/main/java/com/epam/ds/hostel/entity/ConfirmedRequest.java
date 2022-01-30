@@ -2,13 +2,16 @@ package com.epam.ds.hostel.entity;
 
 import java.sql.Date;
 
+
+import com.epam.ds.hostel.entity.status.EntityStatus.ConfirmedRequestStatus;
+
 public class ConfirmedRequest {
 	
 	private int id;
 	private int billId;
 	private int administratorId;
 	private Date confirmationDate;
-	private int status;
+	private ConfirmedRequestStatus status;
 	private Date dateOfPayment;
 	
 	
@@ -55,12 +58,12 @@ public class ConfirmedRequest {
 	}
 
 
-	public int getStatus() {
+	public ConfirmedRequestStatus getStatus() {
 		return status;
 	}
 
 
-	public void setStatus(int status) {
+	public void setStatus(ConfirmedRequestStatus status) {
 		this.status = status;
 	}
 
@@ -84,7 +87,7 @@ public class ConfirmedRequest {
 		result = prime * result + ((confirmationDate == null) ? 0 : confirmationDate.hashCode());
 		result = prime * result + ((dateOfPayment == null) ? 0 : dateOfPayment.hashCode());
 		result = prime * result + id;
-		result = prime * result + status;
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
 
@@ -126,7 +129,6 @@ public class ConfirmedRequest {
 				+ ", confirmationDate=" + confirmationDate + ", status=" + status + ", dateOfPayment=" + dateOfPayment
 				+ "]";
 	}
-
 
 
 	

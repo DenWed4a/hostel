@@ -4,7 +4,7 @@ public class Bill {
 	
 	private int id;
 	private double totalAmount;
-	private String status;
+	private BillStatus status;
 	private int bookingRequestID;
 	
 	public Bill() {}
@@ -25,11 +25,11 @@ public class Bill {
 		this.totalAmount = totalAmount;
 	}
 
-	public String getStatus() {
+	public BillStatus getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(BillStatus status) {
 		this.status = status;
 	}
 
@@ -67,10 +67,7 @@ public class Bill {
 			return false;
 		if (id != other.id)
 			return false;
-		if (status == null) {
-			if (other.status != null)
-				return false;
-		} else if (!status.equals(other.status))
+		if (status != other.status)
 			return false;
 		if (Double.doubleToLongBits(totalAmount) != Double.doubleToLongBits(other.totalAmount))
 			return false;
@@ -83,6 +80,5 @@ public class Bill {
 				+ bookingRequestID + "]";
 	}
 	
-
 
 }

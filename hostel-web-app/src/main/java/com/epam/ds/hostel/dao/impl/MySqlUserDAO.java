@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.epam.ds.hostel.bean.builder.BuilderFactory;
+import com.epam.ds.hostel.bean.builder.UserBuilderInstance;
 import com.epam.ds.hostel.dao.UserDAO;
 import com.epam.ds.hostel.dao.connectionpool.ConnectionPool;
 import com.epam.ds.hostel.dao.connectionpool.ConnectionPoolException;
@@ -18,13 +18,14 @@ import com.epam.ds.hostel.dao.creator.UserCreator;
 import com.epam.ds.hostel.dao.exception.DAOException;
 import com.epam.ds.hostel.entity.User;
 import com.epam.ds.hostel.entity.UserDetail;
+import com.epam.ds.hostel.entity.UserRole;
 import com.epam.ds.hostel.entity.criteria.Criteria;
 
 public class MySqlUserDAO implements UserDAO {
 	private ConnectionPool cp = ConnectionPool.getInstance();
 	private final static String getUserData = "SELECT * FROM USERS LEFT OUTER JOIN USERS_DETAILS ON USER_ID = ID";
 	private final static String addNewUser = "INSERT INTO USERS (login, roles_id, status, password) VALUES (?,?,?,?)";
-	private final static String addUserDetail = "INSERT INTO USERS_DETAILS VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+	private final static String addUserDetail = "INSERT INTO USERS_DETAILS VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private final static String updateUserDetail =
 	   "UPDATE USERS_DETAILS SET name=?, surname=?, phone_number=? , email=?, reiting=?, passport_number=?, nationality=?,"
 	     + "date_of_birth=?, passport_date_of_issue=?, passport_date_of_expire=?, address=? "
@@ -82,7 +83,7 @@ public class MySqlUserDAO implements UserDAO {
 			pst = con.prepareStatement(addNewUser, Statement.RETURN_GENERATED_KEYS);
 
 			pst.setString(1, user.getLogin());
-			pst.setInt(2, user.getIdRole());
+			pst.setInt(2, user.getRole().getTitle());
 			pst.setInt(3, user.getStatus());
 			pst.setInt(4, user.getPassword().hashCode());
 			pst.executeUpdate();
@@ -112,6 +113,7 @@ public class MySqlUserDAO implements UserDAO {
 			pst.setDate(10, userDetail.getPassportDateOfIssue());
 			pst.setDate(11, userDetail.getPassportDateOfExpire());
 			pst.setString(12, userDetail.getAddress());
+			pst.setString(13, userDetail.getImage());
 			pst.executeUpdate();
 			con.commit();
 
@@ -227,7 +229,7 @@ public class MySqlUserDAO implements UserDAO {
 
 	@Override
 	public void updateUser(int userId, User user) throws DAOException {
-		Connection con = null;
+		/*Connection con = null;
 		PreparedStatement pst = null;
 		boolean needUpdate = false;
 		StringBuilder sBuilder = new StringBuilder();
@@ -252,7 +254,7 @@ public class MySqlUserDAO implements UserDAO {
 		System.out.println(sBuilder.toString());
 		/*if(user.getPassword()!=null) {
 			sBuilder.append("login=").append(user.getLogin()).append(",");
-		}*/
+		}
 		
 		try {
 			con = cp.takeConnection();
@@ -272,7 +274,7 @@ public class MySqlUserDAO implements UserDAO {
 				throw new DAOException(e);
 			}
 
-		}
+		}*/
 
 	}
 

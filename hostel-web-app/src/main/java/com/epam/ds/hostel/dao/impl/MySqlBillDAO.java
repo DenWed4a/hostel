@@ -22,6 +22,7 @@ public class MySqlBillDAO implements BillDAO {
 	private final static String findAllBills = "SELECT * FROM BILLS";
 	private final static String updateBill = "UPDATE BILLS SET total_amount=?, status=? WHERE(ID = ?)";
 	private final static String deleteBill = "UPDATE BILLS SET status=3 WHERE(ID = ?)";
+	private final static String FIND_BILL_BY_REQUEST = "SELECT * FROM bills WHERE(booking_request_id = ?)";
 
 	@Override
 	public Bill findBill(int billID) throws DAOException {
@@ -126,7 +127,7 @@ public class MySqlBillDAO implements BillDAO {
 			con = cp.takeConnection();
 			pst = con.prepareStatement(updateBill);
 			pst.setDouble(1, bill.getTotalAmount());
-			pst.setInt(2, BillStatus.valueOf(bill.getStatus()).getTitle());
+			pst.setInt(2, bill.getStatus().getTitle());
 			pst.setInt(3, id);
 			pst.executeUpdate();
 		} catch (ConnectionPoolException e) {
@@ -167,6 +168,44 @@ public class MySqlBillDAO implements BillDAO {
 
 		}
 
+	}
+
+	@Override
+	public Bill findBillByBookingRequestId(int id) throws DAOException {
+		Connection con = null;
+		PreparedStatement pst = null;
+		ResultSet resultSet = null;
+		Bill bill = null;
+		
+		try {
+			con = cp.takeConnection();
+			pst = con.prepareStatement(FIND_BILL_BY_REQUEST);
+			pst.setInt(1, id);
+			resultSet = pst.executeQuery();
+			while(resultSet.next()) {
+				int billId = resultSet.getInt(1);
+				double tatalAmount = resultSet.getDouble(2);
+				int status = resultSet.getInt(3);
+				int bookingRequestId = id;
+				bill = new Bill();
+				bill.setBookingRequestID(bookingRequestId);
+				bill.setId(billId);
+				bill.setTotalAmount(tatalAmount);
+				bill.setStatus(BillStatus.values()[status]);
+			}
+			
+		} catch (ConnectionPoolException | SQLException e) {
+			throw new DAOException(e);
+		}finally {
+			try {
+				cp.closeConnection(con, pst, resultSet);
+			} catch (ConnectionPoolException e) {
+				throw new DAOException(e);
+			}
+
+		}
+		
+		return bill;
 	}
 
 }

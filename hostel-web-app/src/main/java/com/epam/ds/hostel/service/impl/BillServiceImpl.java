@@ -77,4 +77,17 @@ public class BillServiceImpl implements BillService{
 		}
 	}
 
+	@Override
+	public Bill findBillByRequestId(int id) throws ServiceException {
+		Bill bill;
+		DAOFactory factory = DAOFactory.getInstance();
+		BillDAO billDAO = factory.getMySqlBillDAO();
+		try {
+			bill = billDAO.findBillByBookingRequestId(id);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		return bill;
+	}
+
 }

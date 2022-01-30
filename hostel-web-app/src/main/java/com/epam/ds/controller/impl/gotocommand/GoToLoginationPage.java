@@ -22,14 +22,8 @@ public class GoToLoginationPage implements Command{
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
 		
-		String url = request.getHeader("referer");
-		System.out.println(request.getRequestURI()+"    "+request.getRequestURL());
-		
-		System.out.println("HEADER"+url);
-		session.setAttribute("url", url);
-		
+
 		UserDAO userDAO = new MySqlUserDAO();
 		User user;
 		try {

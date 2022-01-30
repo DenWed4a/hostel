@@ -23,12 +23,12 @@ public class MySqlBedPlaceDAO implements BedPlaceDAO{
 	private final static String getPlacesWithoutRequests = "SELECT bed_places.id, bed_places.tier, bed_places.image "
 			+ "FROM bed_places LEFT JOIN bed_place_has_confirmed_request ON bed_place_has_confirmed_request.bed_place_id=bed_places.id "
 			+ "WHERE (confirmed_request_id is null)";
-	private final static String getFreePlaces = "SELECT bed_places.id, bed_places.tier, bed_places.image "
+	private final static String getFreePlaces = "SELECT DISTINCTROW bed_places.id, bed_places.tier, bed_places.image "
 			+ "FROM bed_places  JOIN bed_place_has_confirmed_request ON bed_place_has_confirmed_request.bed_place_id=bed_places.id "
 			+ "JOIN confirmed_requests ON bed_place_has_confirmed_request.confirmed_request_id=confirmed_requests.booking_request_id "
 			+ "JOIN booking_requests ON booking_requests.id=confirmed_requests.booking_request_id "
-			+ "WHERE (end_date <= ?) OR (start_date >= ?);
-	
+			+ "WHERE (start_date >= ?) OR (end_date <= ?)";
+	private final static String updateBedPlace = "UPDATE bed_places SET (tier, image) VALUES(?,?) WHERE id=?";
 
 	@Override
 	public void addNewBedPlace(BedPlace place) throws DAOException {
@@ -138,12 +138,30 @@ public class MySqlBedPlaceDAO implements BedPlaceDAO{
 	}
 
 	@Override
-	public void deleteBedPlace(int id) throws DAOException {
-		// TODO Auto-generated method stub
+	public void updateBedPlace(BedPlace place) throws DAOException {
+		Connection con = null;
+		PreparedStatement pst = null;
+		
+		try {
+			con = cp.takeConnection();
+			pst = con.prepareStatement(updateBedPlace);
+			pst.setInt(1, place.getTier());
+			pst.setString(2, place.getImagePath());
+			pst.setInt(3, place.getId());
+			pst.executeUpdate();
+		} catch (ConnectionPoolException | SQLException e) {
+			throw new DAOException(e);
+		}finally {
+			try {
+				cp.closeConnection(con, pst);
+			} catch (ConnectionPoolException e) {
+				throw new DAOException(e);
+			}
+		}
 		
 	}
 	
-	public List<BedPlace> findFreeBedPlaces(Date startDate, Date endDate) throws DAOException{
+	public List<BedPlace> getFreeBedPlaces(Date startDate, Date endDate) throws DAOException{
 		List<BedPlace> result = new ArrayList<>();
 		 
 		Connection con = null;
@@ -171,8 +189,8 @@ public class MySqlBedPlaceDAO implements BedPlaceDAO{
 			pst.close();
 			
 			pst = con.prepareStatement(getFreePlaces);
-			pst.setDate(1, startDate);
-			pst.setDate(2, endDate);
+			pst.setDate(2, startDate);
+			pst.setDate(1, endDate);
 			
 			resultSet = pst.executeQuery();
 			

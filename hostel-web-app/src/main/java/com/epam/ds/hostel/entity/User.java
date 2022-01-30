@@ -4,7 +4,7 @@ public class User {
 	private int id;
 	private String login;
 	private String password;
-	private int idRole;
+	private UserRole role;
 	private int status;
 	private UserDetail detail;
 
@@ -12,7 +12,7 @@ public class User {
 		this.id = builder.id;
 		this.login = builder.login;
 		this.password = builder.password;
-		this.idRole = builder.idRole;
+		this.role = builder.role;
 		this.status = builder.status;
 		this.detail = builder.detail;
 	}
@@ -21,7 +21,7 @@ public class User {
 		private int id;
 		private String login;
 		private String password;
-		private int idRole;
+		private UserRole role;
 		private int status;
 		private UserDetail detail;
 		
@@ -30,8 +30,8 @@ public class User {
 		public Builder(User user) {
 			id = user.getId();
 			login = user.getLogin();
-			password = user.password;
-			idRole = user.idRole;
+			password = user.getPassword();
+			role = user.getRole();
 			status = user.getStatus();
 			detail = user.getDetail();
 		}
@@ -51,8 +51,8 @@ public class User {
 			return this;
 		}
 
-		public Builder idRole(int idRole) {
-			this.idRole = idRole;
+		public Builder idRole(UserRole role) {
+			this.role = role;
 			return this;
 		}
 
@@ -74,7 +74,6 @@ public class User {
 			this.id = 0;
 			this.login = null;
 			this.password = null;
-			this.idRole = 0;
 			this.status = 0;
 			this.detail = null;
 		}
@@ -105,12 +104,12 @@ public class User {
 		this.password = password;
 	}
 
-	public int getIdRole() {
-		return idRole;
+	public UserRole getRole() {
+		return role;
 	}
 
-	public void setIdRole(int idRole) {
-		this.idRole = idRole;
+	public void setRole(UserRole role) {
+		this.role = role;
 	}
 
 	public int getStatus() {
@@ -135,9 +134,9 @@ public class User {
 		int result = 1;
 		result = prime * result + ((detail == null) ? 0 : detail.hashCode());
 		result = prime * result + id;
-		result = prime * result + idRole;
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + status;
 		return result;
 	}
@@ -158,8 +157,6 @@ public class User {
 			return false;
 		if (id != other.id)
 			return false;
-		if (idRole != other.idRole)
-			return false;
 		if (login == null) {
 			if (other.login != null)
 				return false;
@@ -170,6 +167,8 @@ public class User {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
+		if (role != other.role)
+			return false;
 		if (status != other.status)
 			return false;
 		return true;
@@ -177,9 +176,11 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", login=" + login + ", password=" + password + ", idRole=" + idRole + ", status="
+		return "User [id=" + id + ", login=" + login + ", password=" + password + ", role=" + role + ", status="
 				+ status + ", detail=" + detail + "]";
 	}
+
+
 
 	
 	

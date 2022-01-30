@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import com.epam.ds.hostel.entity.ConfirmedRequest;
+import com.epam.ds.hostel.entity.status.EntityStatus.ConfirmedRequestStatus;
 
 
 
@@ -31,7 +32,7 @@ private final static ConfirmedRequestCreator instance = new ConfirmedRequestCrea
 		request.setConfirmationDate(confirmationDate);
 		request.setDateOfPayment(dateOfPayment);
 		request.setId(id);
-		request.setStatus(status);
+		request.setStatus(ConfirmedRequestStatus.values()[status]);
 		
 		return request;
 	}
