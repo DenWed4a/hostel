@@ -11,6 +11,8 @@ a {
 	color: black;
 }
 
+.doNotShow {display:none;}
+
 body {
 	background: url("../images/bgMainPage.jpg") no-repeat;
 	background-size: 100% auto;
@@ -65,7 +67,7 @@ body {
 
 .header_buttons{
 	display: flex;
-	justify-content: space-between;
+	gap: 30px;
 	width: calc(100vw - 130px);
 }
 
@@ -82,8 +84,6 @@ body {
 .header_buttons a:hover {
 	color: chocolate; 
 }
-
-
 
 #booking_hidden_buttons{
 	position: absolute;
@@ -133,7 +133,8 @@ label {
 	display: inline-block;
 }
 
-.table{
+.table,
+.wrapper {
 	max-width: 80vw;
 	margin: 50px auto;
 	max-height: 400px;
@@ -141,29 +142,30 @@ label {
 	min-height: 65px;
 	background-color: rgba(255,255,255,0.9);
 	padding: 10px;
-	font-family: 'Roboto', sans-serif;
-	
+	font-family: 'Roboto', sans-serif;	
 }
+
+
+
 .sticky{
-	position: sticky;
-	
+	position: sticky;	
 }
 
 table{
 	width: 1050px;
 	table-layout: auto;
 	border: 0px;
-	border-collapse: collapse;	
-	
+	border-collapse: collapse;		
 }
+
 td{
-	text-align: center;
-	
+	text-align: center;	
 }
+
 tr:nth-child(odd){
-	background-color: #d1d1c4;
-	
+	background-color: #d1d1c4;	
 }
+
 tr{
 	height: 2em;
 }
@@ -172,13 +174,12 @@ tr{
     width: fit-content;
     height: fit-content;
     text-align: center;
-    padding: 15px;
-   
+    padding: 15px;   
 }
+
 #okno2 .header_top, #okno2 .header_line{
 	display: none;
 }
-
 
 #zatemnenie {
   background: rgba(102, 102, 102, 0.5);
@@ -192,53 +193,50 @@ tr{
 
 #zatemnenie:target {
 	display: flex;
-	justify-content: space-around;
-	
+	justify-content: space-around;	
 }
 
 #zatemnenie2 {
-  background: rgba(102, 102, 102, 0.5);
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: none;
+	background: rgba(102, 102, 102, 0.5);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
 }
 
 #zatemnenie2:target {
 	display: flex;
-	justify-content: space-around;
-	
+	justify-content: space-around;	
 }
 
 #zatemnenie3 {
-  background: rgba(102, 102, 102, 0.5);
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: none;
+	background: rgba(102, 102, 102, 0.5);
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: none;
 }
 
 #zatemnenie3:target {
 	display: flex;
-	justify-content: space-around;
-	
+	justify-content: space-around;	
 }
 	
 .close {
-        display: inline-block;
-        border: 1px solid #0000cc;
-        color: #0000cc;
-        padding: 0 12px;
-        margin: 10px;
-        text-decoration: none;
-        background: #f2f2f2;
-        font-size: 14pt;
-        cursor:pointer;
-      }
+	display: inline-block;
+	border: 1px solid #0000cc;
+	color: #0000cc;
+	padding: 0 12px;
+	margin: 10px;
+	text-decoration: none;
+	background: #f2f2f2;
+	font-size: 14pt;
+	cursor:pointer;
+}
       
 .close:hover {
 	background: #e6e6ff;
@@ -246,17 +244,18 @@ tr{
 
 .user_photo{
 	height: 50px;
-	vertical-align: middle;
-	
+	vertical-align: middle;	
 }
+
 table.user_list_table tr:not(:first-child){
 	height: 54px;
 }
+
 .print{
 	color: white;
-	font-size: 100px;
-	
+	font-size: 100px;	
 }
+
 .bill{
 	background-color: white;
 	margin: 30px auto;
@@ -264,37 +263,103 @@ table.user_list_table tr:not(:first-child){
 	padding: 15px;
 	font-size: 18px;
 }
+
 .bill h2{
 	text-align: center;
 }
+
 .bill #dates{
 	display: flex;
 	justify-content: flex-end;
 	gap: 10px;
 	margin-bottom: 10px;
 }
+
 .bill table#bill_table{
 	background-color: white;
 	width: 100%;
 	border: black;
 }
+
 .bill table#bill_table tr:nth-child(odd){
 	background-color: white;
 }
+
 #total_in_bill{
-text-align: right;
-text-transform: uppercase;
-margin-top: 10px;	
+	text-align: right;
+	text-transform: uppercase;
+	margin-top: 10px;	
 }
 
 #bill_button{
 	display: flex;
 	justify-content: center;
 	gap: 50px;
-	margin-top: 20px;
-	
+	margin-top: 20px;	
 }
+
 #bill_button button{
 	font-size: 20px;
 	padding: 5px;
+}
+
+
+.wrapper {
+	display: flex;
+	gap: 30px;
+	align-items: flex-start;
+}
+
+#photo_edit {
+	width: 20%;
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
+#personal-photo {
+	width: 100%;
+	box-shadow: 0 0 5px rgba(0,0,0,0.5);	
+}
+
+#button_edit-personal-info {	
+	width: 100%;
+	padding: 5px;	
+	text-align: center;
+	text-transform: uppercase;
+	font-size: 18px;
+	font-weight: 700;
+	background-color: #b7b7ab;
+	letter-spacing: 2px;
+	color: rgba(255,255,255,0.9);
+}
+
+#button_edit-personal-info:hover {
+	text-shadow: 0 0 2px white;
+}
+
+#button_edit-personal-info:active {
+	box-shadow: 0 0 5px rgba(0,0,0,0.5) inset;
+	border-radius: 3px;
+}
+
+#personal-info {
+	width: 55%;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	font-size: 18px;
+}
+
+#personal-info .flex-row {
+	display: flex;	
+	justify-content: space-between;	
+}
+
+#personal-info .flex-row span {
+	flex-basis: 45%;
+}
+
+#personal-info .flex-row span:first-child {
+	font-weight: 500;
 }

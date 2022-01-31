@@ -33,8 +33,8 @@
 
 	<c:set var="bed_places_list" scope="page" value="${bedPlaces}"/>
 	<c:set var="lockers_list" scope="page" value="${lockers}"/>
-
-	<div class="header_top">
+	<jsp:include page="blank/Header.jsp"></jsp:include>
+	<!--<div class="header_top">
 		<div class="buttons_home_back">	
 			<a href="Controller?command=GO_TO_INDEX_PAGE"><i class="fas fa-home"></i></a>
 			<a href="Controller?command=GO_TO_INDEX_PAGE"><i class="fas fa-arrow-alt-circle-left"></i></a>
@@ -89,6 +89,7 @@
 		</div>
 		
 	</div>
+	-->
 	
 	
 		
@@ -134,7 +135,7 @@
 					<tr>
 						<td>Колличество мест: ${bookingRequest.numberOfPlaces}</td>
 						<td>Колличество ячеек: ${bookingRequest.numberOfLockers}</td>
-						<td>Итого: ${bill.totalAmount}</td>	
+						<!--  <td>Итого: ${bill.totalAmount}</td>-->	
 						<td><input type="submit" value="${confirm}"></td>
 					</tr>
 				</table>

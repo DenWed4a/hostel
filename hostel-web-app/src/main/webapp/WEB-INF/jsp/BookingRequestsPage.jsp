@@ -183,7 +183,7 @@
 				<table>
 					<tr class="sticky">
 						<th>Id</th>
-						<th>${bill_id}</th>
+						<th>${bill_id} </th>
 						<th>${administrator_id}</th>
 						<th>${confirmation_date}</th>
 						<th>${status}</th>
@@ -194,7 +194,7 @@
 					<c:if test="${i.status.toString() eq 'ACTIVE'}">
 						<tr>
 							<td><a href="Controller?command=GO_TO_BOOKING_REQUESTS_PAGE&table=booking&button=info_by_id&b_info_id=${i.id}">${i.id}</a></td>
-							<td>${i.billId}</td>
+							<td><a href="Controller?command=GO_TO_BILL_PAGE&booking_id=${i.id}">${i.billId} </a></td>
 							<td>${i.administratorId}</td>
 							<td>${i.confirmationDate}</td>
 							<td><form method="post" action="Controller?command=GO_TO_BOOKING_REQUESTS_PAGE&table=confirmed&button=active&confirmed_request_id=${i.id}">								
@@ -213,7 +213,7 @@
 					<c:if test="${button eq 'all' and (i.status eq 'COMPLITED' or i.status eq 'DELETED')}">
 						<tr>
 							<td>${i.id}</td>
-							<td>${i.billId}</td>
+							<td><a href="Controller?command=GO_TO_BILL_PAGE&booking_id=${i.id}">${i.billId} </a></td>
 							<td>${i.administratorId}</td>
 							<td>${i.confirmationDate}</td>
 							<td>${i.status}</td>
