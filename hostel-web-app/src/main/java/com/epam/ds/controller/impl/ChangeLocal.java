@@ -15,13 +15,9 @@ public class ChangeLocal implements Command{
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String locale = request.getParameter("local");
 		HttpSession session = request.getSession();
-		session.setAttribute("local", locale);
-		
-		String url;
-		
-		url = (String) session.getAttribute("url");
-		System.out.println(url+"          changelocal");
-		
+		session.setAttribute("local", locale);		
+		String url;		
+		url = (String) session.getAttribute("url");				
 		response.sendRedirect(url);
 		
 	}

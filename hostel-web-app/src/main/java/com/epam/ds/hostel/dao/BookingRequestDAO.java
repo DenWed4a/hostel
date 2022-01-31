@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.epam.ds.hostel.dao.exception.DAOException;
 import com.epam.ds.hostel.entity.BookingRequest;
-import com.epam.ds.hostel.entity.criteria.Criteria;
+
 
 public interface BookingRequestDAO {
 	void addNewRequest(BookingRequest request) throws DAOException;

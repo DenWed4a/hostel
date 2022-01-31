@@ -12,6 +12,7 @@ import com.epam.ds.controller.impl.SaveAccauntInfoChangesCommand;
 import com.epam.ds.controller.impl.SaveBookingChangesCommand;
 import com.epam.ds.controller.impl.SaveBookingRequest;
 import com.epam.ds.controller.impl.SaveConfirmedRequest;
+import com.epam.ds.controller.impl.UpdateBillPayment;
 import com.epam.ds.controller.impl.gotocommand.GoToAccauntPage;
 import com.epam.ds.controller.impl.gotocommand.GoToBillPage;
 import com.epam.ds.controller.impl.gotocommand.GoToBookingPage;
@@ -58,6 +59,7 @@ public final class CommandProvider {
 		commands.put("GO_TO_CHANGE_BOOKING_REQUEST", new GoToChangeBookingRequest());
 		commands.put("SAVE_BOOKING_CHANGES", new SaveBookingChangesCommand());
 		commands.put("GO_TO_BILL_PAGE", new GoToBillPage());
+		commands.put("UPDATE_PAYMENT", new UpdateBillPayment());
 	}
 	
 	public final Command getCommand(String commandName) {

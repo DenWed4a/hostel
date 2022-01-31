@@ -1,8 +1,13 @@
 package com.epam.ds.hostel.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class UserDetail {
+public class UserDetail implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int userId;
 	private String name;
 	private String surname;
@@ -59,7 +64,7 @@ public class UserDetail {
 		this.email = email;
 	}
 
-	public double getReiting() {
+	public double getRating() {
 		return rating;
 	}
 

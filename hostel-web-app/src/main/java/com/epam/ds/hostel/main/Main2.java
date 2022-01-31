@@ -18,8 +18,7 @@ import com.epam.ds.hostel.dao.impl.MySqlUserDAO;
 import com.epam.ds.hostel.entity.BookingRequest;
 import com.epam.ds.hostel.entity.User;
 import com.epam.ds.hostel.entity.UserDetail;
-import com.epam.ds.hostel.entity.criteria.Criteria;
-import com.epam.ds.hostel.entity.criteria.SearchCriteria;
+
 
 public class Main2 {
 	
@@ -51,9 +50,7 @@ public class Main2 {
 		detail.setAddress("Minsk, Kirova 12");
 		
 		
-		Criteria criteria = new Criteria(SearchCriteria.Users.class.getSimpleName());
-		criteria.add(SearchCriteria.UserDetail.TELEPHONE_NUMBER.toString(), "'+375290000000'");
-		criteria.add(SearchCriteria.UserDetail.EMAIL.toString(), "'newMail@mail.new'");
+
 		
 		//System.out.println(dao.findUserByCriteria(criteria));
 		//dao.updateUserDetail(31, criteria);

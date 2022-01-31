@@ -16,12 +16,11 @@ public class BillTotalCalculator {
 	public double getTotal(Date checkIn, Date checkOut, int places, int lockers) {
 		double result;
 		int days;
-		TimeUnit timeUnit = TimeUnit.DAYS;
-		days = (int) timeUnit.convert(checkOut.getTime()-checkIn.getTime(), TimeUnit.MILLISECONDS);
+		days = getNumberDays(checkIn, checkOut);
 		if(days == 0) {
 			days = 1;
 		}
-		result = placesRate*places*days + lockersRate * lockers * days;
+		result = placesCost(places, days) + lockersCost(lockers, days);
 		
 		return result;
 	}
@@ -32,6 +31,39 @@ public class BillTotalCalculator {
 		result = getTotal(checkIn, checkOut, places, lockers);
 		result = result - result*discount/100;	
 		return result;
+	}
+	
+	public int getNumberDays(Date checkIn, Date checkOut) {
+		int result;
+		TimeUnit timeUnit = TimeUnit.DAYS;
+		result = (int) timeUnit.convert(checkOut.getTime()-checkIn.getTime(), TimeUnit.MILLISECONDS);
+		
+		return result;
+	}
+	
+	public double placesCost(int places, int days) {
+		double result;
+		result = days * places * placesRate;
+		return result;
+	}
+	
+	public double lockersCost(int lockers, int days) {
+		double result;
+		result = days * lockers * lockersRate;
+		return result;
+		
+	}
+
+	public double getPlacesRate() {
+		return placesRate;
+	}
+
+	public double getLockersRate() {
+		return lockersRate;
+	}
+
+	public double getDiscont() {
+		return discont;
 	}
 	
 

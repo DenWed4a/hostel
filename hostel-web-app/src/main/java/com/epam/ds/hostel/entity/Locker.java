@@ -1,6 +1,12 @@
 package com.epam.ds.hostel.entity;
 
-public class Locker {
+import java.io.Serializable;
+
+public class Locker implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private LockerType size;
 	private String imagePath;

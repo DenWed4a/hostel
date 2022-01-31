@@ -7,7 +7,7 @@ import com.epam.ds.hostel.dao.BookingRequestDAO;
 import com.epam.ds.hostel.dao.DAOFactory;
 import com.epam.ds.hostel.dao.exception.DAOException;
 import com.epam.ds.hostel.entity.BookingRequest;
-import com.epam.ds.hostel.entity.criteria.Criteria;
+
 import com.epam.ds.hostel.service.BookingRequestService;
 import com.epam.ds.hostel.service.exception.ServiceException;
 

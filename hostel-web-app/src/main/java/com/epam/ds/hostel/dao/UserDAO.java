@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.epam.ds.hostel.dao.exception.DAOException;
 import com.epam.ds.hostel.entity.User;
-import com.epam.ds.hostel.entity.criteria.Criteria;
 
 public interface UserDAO {
 	void saveUser(User user) throws DAOException;
@@ -18,11 +17,9 @@ public interface UserDAO {
 	
 	User findByLogin(String login) throws DAOException;
 	
-	User findUserByCriteria(Criteria criteria) throws DAOException;
+	void updateUserDetail(User user) throws DAOException;
 	
-	void updateUserDetail(int userId, User user) throws DAOException;
-	
-	void updateUser(int userId, User user) throws DAOException;
+	void updateUser(User user) throws DAOException;
 	
 	void deleteUser(int id) throws DAOException;
 	

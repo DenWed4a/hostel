@@ -90,4 +90,16 @@ public class BillServiceImpl implements BillService{
 		return bill;
 	}
 
+	@Override
+	public void confirmPayment(Bill bill) throws ServiceException {
+		DAOFactory factory = DAOFactory.getInstance();
+		BillDAO billDAO = factory.getMySqlBillDAO();
+		try {
+			billDAO.confirmPayment(bill);
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		
+	}
+
 }

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.epam.ds.controller.Command;
 import com.epam.ds.hostel.dao.BookingRequestDAO;
 import com.epam.ds.hostel.dao.UserDAO;
@@ -26,7 +28,8 @@ import com.epam.ds.hostel.service.exception.ServiceException;
 
 public class SaveBookingRequest implements Command{
 	
-	private final String goToBookingPage = "/WEB-INF/jsp/bookingPage.jsp";
+	private final String GO_TO_BOOKING_PAGE = "Controller?command=GO_TO_BOOKING_PAGE";
+	private final static Logger log = Logger.getLogger(SaveBookingRequest.class);
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -71,12 +74,11 @@ public class SaveBookingRequest implements Command{
 			session.setAttribute("bookingMessage", bookingMessage);
 			
 		} catch (ServiceException e) {
-			
+			log.error(e);
 		}
 		
-		//request.getRequestDispatcher("Controller?command=GO_TO_BOOKING_PAGE").forward(request, response);
 		
-		response.sendRedirect("Controller?command=GO_TO_BOOKING_PAGE");
+		response.sendRedirect(GO_TO_BOOKING_PAGE);
 		
 		
 	}

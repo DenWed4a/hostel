@@ -12,7 +12,7 @@ import com.epam.ds.hostel.dao.exception.DAOException;
 
 public class MySqlUserRole implements UserRoleDAO {
 	private ConnectionPool cp = ConnectionPool.getInstance();
-	private final static String getRoleById = "SELECT * FROM ROLES WHERE ID = ?";
+	private final static String GET_ROLE_BY_ID = "SELECT * FROM ROLES WHERE ID = ?";
 
 	public String getRole(int id) throws DAOException {
 
@@ -23,7 +23,7 @@ public class MySqlUserRole implements UserRoleDAO {
 
 		try {
 			con = cp.takeConnection();
-			pst = con.prepareStatement(getRoleById);
+			pst = con.prepareStatement(GET_ROLE_BY_ID);
 			pst.setInt(1, id);
 			resultSet = pst.executeQuery();
 			resultSet.next();

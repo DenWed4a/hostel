@@ -1,10 +1,12 @@
 package com.epam.ds.hostel.dao.impl;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import com.epam.ds.hostel.dao.BillDAO;
@@ -17,12 +19,14 @@ import com.epam.ds.hostel.entity.BillStatus;
 
 public class MySqlBillDAO implements BillDAO {
 	private ConnectionPool cp = ConnectionPool.getInstance();
-	private final static String addNewBill = "INSERT INTO BILLS (total_amount, booking_request_id) VALUES (?,?)";
-	private final static String findBill = "SELECT * FROM BILLS WHERE ID = ?";
-	private final static String findAllBills = "SELECT * FROM BILLS";
-	private final static String updateBill = "UPDATE BILLS SET total_amount=?, status=? WHERE(ID = ?)";
-	private final static String deleteBill = "UPDATE BILLS SET status=3 WHERE(ID = ?)";
+	private final static String ADD_NEW_BILL = "INSERT INTO BILLS (total_amount, booking_request_id) VALUES (?,?)";
+	private final static String FIND_BILL_BY_ID = "SELECT * FROM BILLS WHERE ID = ?";
+	private final static String FIND_ALL_BILLS = "SELECT * FROM BILLS";
+	private final static String UPDATE_BILL = "UPDATE BILLS SET total_amount=?, status=? WHERE(ID = ?)";
+	private final static String DELETE_BILL = "UPDATE BILLS SET status=3 WHERE(ID = ?)";
 	private final static String FIND_BILL_BY_REQUEST = "SELECT * FROM bills WHERE(booking_request_id = ?)";
+	private final static String CONFIRM_PAYMENT = "UPDATE bills SET status = 1 WHERE id = ?";
+	private final static String SET_DATE_OF_PAYMENT = "UPDATE confirmed_requests SET date_of_payment = ? WHERE bills_id = ?";
 
 	@Override
 	public Bill findBill(int billID) throws DAOException {
@@ -33,7 +37,7 @@ public class MySqlBillDAO implements BillDAO {
 		Bill bill;
 		try {
 			con = cp.takeConnection();
-			pst = con.prepareStatement(findBill);
+			pst = con.prepareStatement(FIND_BILL_BY_ID);
 			pst.setInt(1, billID);
 			resultSet = pst.executeQuery();
 			resultSet.next();
@@ -66,7 +70,7 @@ public class MySqlBillDAO implements BillDAO {
 
 		try {
 			con = cp.takeConnection();
-			pst = con.prepareStatement(findAllBills);
+			pst = con.prepareStatement(FIND_ALL_BILLS);
 			resultSet = pst.executeQuery();
 
 			while (resultSet.next()) {
@@ -98,7 +102,7 @@ public class MySqlBillDAO implements BillDAO {
 
 		try {
 			con = cp.takeConnection();
-			pst = con.prepareStatement(addNewBill);
+			pst = con.prepareStatement(ADD_NEW_BILL);
 			pst.setDouble(1, bill.getTotalAmount());
 			pst.setInt(2, bill.getBookingRequestID());
 			pst.executeUpdate();
@@ -125,7 +129,7 @@ public class MySqlBillDAO implements BillDAO {
 		int id = bill.getId();
 		try {
 			con = cp.takeConnection();
-			pst = con.prepareStatement(updateBill);
+			pst = con.prepareStatement(UPDATE_BILL);
 			pst.setDouble(1, bill.getTotalAmount());
 			pst.setInt(2, bill.getStatus().getTitle());
 			pst.setInt(3, id);
@@ -152,7 +156,7 @@ public class MySqlBillDAO implements BillDAO {
 
 		try {
 			con = cp.takeConnection();
-			pst = con.prepareStatement(deleteBill);
+			pst = con.prepareStatement(DELETE_BILL);
 			pst.setInt(1, billId);
 			pst.executeUpdate();
 		} catch (ConnectionPoolException e) {
@@ -176,13 +180,13 @@ public class MySqlBillDAO implements BillDAO {
 		PreparedStatement pst = null;
 		ResultSet resultSet = null;
 		Bill bill = null;
-		
+
 		try {
 			con = cp.takeConnection();
 			pst = con.prepareStatement(FIND_BILL_BY_REQUEST);
 			pst.setInt(1, id);
 			resultSet = pst.executeQuery();
-			while(resultSet.next()) {
+			while (resultSet.next()) {
 				int billId = resultSet.getInt(1);
 				double tatalAmount = resultSet.getDouble(2);
 				int status = resultSet.getInt(3);
@@ -193,10 +197,10 @@ public class MySqlBillDAO implements BillDAO {
 				bill.setTotalAmount(tatalAmount);
 				bill.setStatus(BillStatus.values()[status]);
 			}
-			
+
 		} catch (ConnectionPoolException | SQLException e) {
 			throw new DAOException(e);
-		}finally {
+		} finally {
 			try {
 				cp.closeConnection(con, pst, resultSet);
 			} catch (ConnectionPoolException e) {
@@ -204,8 +208,56 @@ public class MySqlBillDAO implements BillDAO {
 			}
 
 		}
-		
+
 		return bill;
+	}
+
+	@Override
+	public void confirmPayment(Bill bill) throws DAOException {
+		Connection con = null;
+		PreparedStatement pst = null;
+		try {
+			con = cp.takeConnection();
+			con.setAutoCommit(false);
+			pst = con.prepareStatement(CONFIRM_PAYMENT);
+			pst.setInt(1, bill.getId());
+			pst.executeUpdate();
+
+			try {
+				pst.close();
+			} catch (SQLException e) {
+				throw new DAOException(e);
+			}
+
+			pst = con.prepareStatement(SET_DATE_OF_PAYMENT);
+			pst.setDate(1, new Date(Calendar.getInstance().getTime().getTime()));
+			pst.setInt(2, bill.getId());
+			pst.executeUpdate();
+
+			con.commit();
+
+		} catch (ConnectionPoolException e) {
+			throw new DAOException(e);
+		} catch (SQLException e) {
+			try {
+				con.rollback();
+			} catch (SQLException e1) {
+
+				throw new DAOException("Error in rollback method", e1);
+			}
+			throw new DAOException(e);
+		} finally {
+			try {
+				if (con != null) {
+					con.setAutoCommit(true);
+				}
+				cp.closeConnection(con, pst);
+			} catch (ConnectionPoolException | SQLException e) {
+				throw new DAOException(e);
+			}
+
+		}
+
 	}
 
 }

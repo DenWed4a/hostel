@@ -22,33 +22,23 @@ public class MySqlLockerDAO implements LockerDAO {
 
 	private ConnectionPool cp = ConnectionPool.getInstance();
 
-	private final static String addLocker = "INSERT INTO lockers (type, image) VALUES (?,?)";
-	private final static String getAllLockers = "SELECT * FROM lockers";
-	private final static String getLockerById = "SELECT * FROM lockers WHERE (id = ?)";
-	private final static String getLockersWithoutRequest = "SELECT lockers.id, lockers.type, lockers.image "
-			+ "FROM lockers LEFT JOIN lockers_has_confirmed_requests ON lockers_has_confirmed_requests.lockers_id=lockers.id "
-			+ "WHERE (confirmed_request_id is null)";
-	private final static String getFreeLockers1 = "SELECT lockers.id, lockers.type, lockers.image, lockers.status "
-			+ "FROM lockers LEFT JOIN lockers_has_confirmed_requests ON lockers_has_confirmed_requests.lockers_id=lockers.id "
-			+ "JOIN confirmed_requests ON lockers_has_confirmed_requests.confirmed_request_id=confirmed_requests.booking_request_id "
-			+ "JOIN booking_requests ON booking_requests.id=confirmed_requests.booking_request_id "
-			+ "WHERE (end_date != ?) OR (start_date != ?)";
-	
-	
+	private final static String ADD_NEW_LOCKER = "INSERT INTO lockers (type, image) VALUES (?,?)";
+	private final static String GET_ALL_LOCKERS = "SELECT * FROM lockers";
+	private final static String GET_LOCKER_BY_ID = "SELECT * FROM lockers WHERE (id = ?)";
 	private final static String GET_FREE_LOCKERS = "SELECT lockers.id, lockers.type, lockers.image, lockers.status "
 			+ "FROM lockers JOIN lockers_has_confirmed_requests LHCR ON LHCR.lockers_id = lockers.id "
 			+ "JOIN booking_requests BR ON BR.id = LHCR.confirmed_request_id "
 			+ "JOIN confirmed_requests CR ON CR.booking_request_id = BR.id && CR.status = 0 "
 			+ "WHERE NOT(start_date > ? OR end_date < ?) OR NOT (start_date < ? AND end_date > ?)";
-	private final static String updateLocker = "UPDATE lockers SET (type, image) VALUES (?,?) WHERE id=? ";
-			
+	private final static String UPDATE_LOCKER = "UPDATE lockers SET (type, image) VALUES (?,?) WHERE id=? ";
+
 	@Override
 	public void addNewLocker(Locker locker) throws DAOException {
 		Connection con = null;
 		PreparedStatement pst = null;
 		try {
 			con = cp.takeConnection();
-			pst = con.prepareStatement(addLocker);
+			pst = con.prepareStatement(ADD_NEW_LOCKER);
 			pst.setString(1, locker.getSize().toString());
 			pst.setString(2, locker.getImagePath());
 			pst.executeUpdate();
@@ -76,7 +66,7 @@ public class MySqlLockerDAO implements LockerDAO {
 
 		try {
 			con = cp.takeConnection();
-			pst = con.prepareStatement(getAllLockers);
+			pst = con.prepareStatement(GET_ALL_LOCKERS);
 			resultSet = pst.executeQuery();
 			while (resultSet.next()) {
 
@@ -116,7 +106,7 @@ public class MySqlLockerDAO implements LockerDAO {
 		try {
 
 			con = cp.takeConnection();
-			pst = con.prepareStatement(getLockerById);
+			pst = con.prepareStatement(GET_LOCKER_BY_ID);
 			pst.setInt(1, id);
 			resultSet = pst.executeQuery();
 			resultSet.next();
@@ -154,9 +144,9 @@ public class MySqlLockerDAO implements LockerDAO {
 
 		try {
 			con = cp.takeConnection();
-			pst = con.prepareStatement(getAllLockers);
+			pst = con.prepareStatement(GET_ALL_LOCKERS);
 			resultSet = pst.executeQuery();
-			while (resultSet.next()) {				
+			while (resultSet.next()) {
 				locker = new Locker();
 				int id = resultSet.getInt(1);
 				String type = resultSet.getString(2);
@@ -175,12 +165,10 @@ public class MySqlLockerDAO implements LockerDAO {
 			pst.setDate(2, endDate);
 			pst.setDate(3, startDate);
 			pst.setDate(4, endDate);
-			
 
 			resultSet = pst.executeQuery();
 
 			while (resultSet.next()) {
-				System.out.println("free lokers");
 				locker = new Locker();
 				int id = resultSet.getInt(1);
 				String type = resultSet.getString(2);
@@ -213,7 +201,7 @@ public class MySqlLockerDAO implements LockerDAO {
 
 		try {
 			con = cp.takeConnection();
-			pst = con.prepareStatement(updateLocker);
+			pst = con.prepareStatement(UPDATE_LOCKER);
 			pst.setString(1, locker.getSize().toString());
 			pst.setString(2, locker.getImagePath());
 			pst.setInt(3, locker.getId());

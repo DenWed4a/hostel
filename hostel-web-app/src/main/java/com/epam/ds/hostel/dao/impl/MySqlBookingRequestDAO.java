@@ -9,7 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-
 import com.epam.ds.hostel.dao.BookingRequestDAO;
 import com.epam.ds.hostel.dao.connectionpool.ConnectionPool;
 import com.epam.ds.hostel.dao.connectionpool.ConnectionPoolException;
@@ -18,17 +17,16 @@ import com.epam.ds.hostel.dao.exception.DAOException;
 import com.epam.ds.hostel.entity.BookingRequest;
 import com.epam.ds.util.BillTotalCalculator;
 
-
 public class MySqlBookingRequestDAO implements BookingRequestDAO {
-	
+
 	private ConnectionPool cp = ConnectionPool.getInstance();
 
-	private final static String addNewRequest = "INSERT INTO BOOKING_REQUESTS (start_date, end_date, number_of_places, number_of_lockers, clients_id) "
+	private final static String ADD_NEW_REQUEST = "INSERT INTO BOOKING_REQUESTS (start_date, end_date, number_of_places, number_of_lockers, clients_id) "
 			+ "VALUES (?,?,?,?,?)";
-	private final static String findBookingRequestByUser = "SELECT * FROM booking_requests WHERE (clients_id = ?)";
-	private final static String findUnconfirmedRequests = "SELECT * FROM booking_requests WHERE status = 0";
-	private final static String deleteBookingRequest = "UPDATE booking_requests SET status = 2 WHERE (id = ?)";
-	private final static String findAllRequests = "SELECT * FROM booking_requests";
+	private final static String FIND_BOOKING_REQUEST_BY_USER = "SELECT * FROM booking_requests WHERE (clients_id = ?)";
+	private final static String FIND_UNCONFIRMED_REQUESTS = "SELECT * FROM booking_requests WHERE status = 0";
+	private final static String DELETE_BOOKING_REQUEST = "UPDATE booking_requests SET status = 2 WHERE (id = ?)";
+	private final static String FIND_ALL_REQUESTS = "SELECT * FROM booking_requests";
 	private final static String GET_REQUEST_BY_ID = "SELECT * FROM booking_requests WHERE (id = ?)";
 	private final static String ADD_NEW_BILL = "INSERT INTO bills (total_amount, booking_request_id) VALUES (?,?)";
 	private final static String UPDATE_BOOKING_REQUEST = "UPDATE booking_requests "
@@ -50,7 +48,7 @@ public class MySqlBookingRequestDAO implements BookingRequestDAO {
 		try {
 			con = cp.takeConnection();
 			con.setAutoCommit(false);
-			pst = con.prepareStatement(addNewRequest, Statement.RETURN_GENERATED_KEYS);
+			pst = con.prepareStatement(ADD_NEW_REQUEST, Statement.RETURN_GENERATED_KEYS);
 			pst.setDate(1, startDate);
 			pst.setDate(2, endDate);
 			pst.setInt(3, bedPlaces);
@@ -58,11 +56,11 @@ public class MySqlBookingRequestDAO implements BookingRequestDAO {
 			// pst.setInt(5, request.getStatus());
 			pst.setInt(5, request.getClientId());
 			pst.executeUpdate();
-			
+
 			resultSet = pst.getGeneratedKeys();
 			resultSet.next();
 			requestId = resultSet.getInt(1);
-			
+
 			try {
 				pst.close();
 			} catch (SQLException e) {
@@ -74,7 +72,7 @@ public class MySqlBookingRequestDAO implements BookingRequestDAO {
 			pst.setDouble(1, totalAmount);
 			pst.setInt(2, requestId);
 			pst.executeUpdate();
-			
+
 			con.commit();
 
 		} catch (ConnectionPoolException e) {
@@ -109,7 +107,7 @@ public class MySqlBookingRequestDAO implements BookingRequestDAO {
 		BookingRequestCreator creator = BookingRequestCreator.getInstance();
 		try {
 			con = cp.takeConnection();
-			pst = con.prepareStatement(findAllRequests);
+			pst = con.prepareStatement(FIND_ALL_REQUESTS);
 
 			resultSet = pst.executeQuery();
 			while (resultSet.next()) {
@@ -137,7 +135,7 @@ public class MySqlBookingRequestDAO implements BookingRequestDAO {
 	@Override
 	public List<BookingRequest> findBookingRequest(int userId) throws DAOException {
 		List<BookingRequest> result = new ArrayList<BookingRequest>();
-		
+
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet resultSet = null;
@@ -145,7 +143,7 @@ public class MySqlBookingRequestDAO implements BookingRequestDAO {
 		BookingRequest bRequest;
 		try {
 			con = cp.takeConnection();
-			pst = con.prepareStatement(findBookingRequestByUser);
+			pst = con.prepareStatement(FIND_BOOKING_REQUEST_BY_USER);
 			pst.setInt(1, userId);
 			resultSet = pst.executeQuery();
 			while (resultSet.next()) {
@@ -172,15 +170,16 @@ public class MySqlBookingRequestDAO implements BookingRequestDAO {
 	@Override
 	public List<BookingRequest> findAllUnconfirmedRequests() throws DAOException {
 		List<BookingRequest> result = new ArrayList<BookingRequest>();
-	
+
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet resultSet = null;
 		BookingRequest bRequest;
 		BookingRequestCreator creator = BookingRequestCreator.getInstance();
-		try {;
+		try {
+			;
 			con = cp.takeConnection();
-			pst = con.prepareStatement(findUnconfirmedRequests);
+			pst = con.prepareStatement(FIND_UNCONFIRMED_REQUESTS);
 
 			resultSet = pst.executeQuery();
 			while (resultSet.next()) {
@@ -207,7 +206,7 @@ public class MySqlBookingRequestDAO implements BookingRequestDAO {
 
 	@Override
 	public void updateBookingRequest(BookingRequest bookingRequest) throws DAOException {
-		
+
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet resultSet = null;
@@ -217,7 +216,7 @@ public class MySqlBookingRequestDAO implements BookingRequestDAO {
 		int bedPlaces = bookingRequest.getNumberOfPlaces();
 		int lockers = bookingRequest.getNumberOfLockers();
 		int brId = bookingRequest.getId();
-		
+
 		try {
 			con = cp.takeConnection();
 			con.setAutoCommit(false);
@@ -228,23 +227,21 @@ public class MySqlBookingRequestDAO implements BookingRequestDAO {
 			pst.setInt(4, lockers);
 			pst.setInt(5, brId);
 			pst.executeUpdate();
-			
+
 			try {
 				pst.close();
 			} catch (SQLException e) {
 				throw new DAOException(e);
 			}
-			
+
 			pst = con.prepareStatement(UPDATE_BILL);
 			billTotalCalculator = new BillTotalCalculator();
-			double totalAmount = billTotalCalculator.getTotal(startDate, endDate, bedPlaces, lockers);			
+			double totalAmount = billTotalCalculator.getTotal(startDate, endDate, bedPlaces, lockers);
 			pst.setDouble(1, totalAmount);
 			pst.setInt(2, brId);
 			pst.executeUpdate();
 			con.commit();
-			
-			
-			
+
 		} catch (ConnectionPoolException e) {
 			throw new DAOException(e);
 		} catch (SQLException e) {
@@ -257,7 +254,7 @@ public class MySqlBookingRequestDAO implements BookingRequestDAO {
 			throw new DAOException(e);
 		} finally {
 			try {
-				if(con!=null) {
+				if (con != null) {
 					con.setAutoCommit(true);
 				}
 				cp.closeConnection(con, pst, resultSet);
@@ -266,20 +263,18 @@ public class MySqlBookingRequestDAO implements BookingRequestDAO {
 			}
 
 		}
-		
-	
 
 	}
 
 	@Override
 	public void deleteBookingRequest(int id) throws DAOException {
-		
+
 		Connection con = null;
 		PreparedStatement pst = null;
 
 		try {
 			con = cp.takeConnection();
-			pst = con.prepareStatement(deleteBookingRequest);
+			pst = con.prepareStatement(DELETE_BOOKING_REQUEST);
 			pst.setInt(1, id);
 			pst.executeUpdate();
 		} catch (ConnectionPoolException e) {
@@ -299,7 +294,7 @@ public class MySqlBookingRequestDAO implements BookingRequestDAO {
 
 	@Override
 	public BookingRequest getBookingRequestById(int id) throws DAOException {
-		
+
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet resultSet = null;
@@ -316,7 +311,7 @@ public class MySqlBookingRequestDAO implements BookingRequestDAO {
 		} catch (ConnectionPoolException e) {
 			throw new DAOException(e);
 		} catch (SQLException e) {
-			
+
 			throw new DAOException(e);
 		} finally {
 			try {

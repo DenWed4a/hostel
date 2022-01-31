@@ -20,6 +20,7 @@ import com.epam.ds.hostel.service.exception.ServiceException;
 public class SaveBookingChangesCommand implements Command{
 	private final static Logger log = Logger.getLogger(SaveBookingChangesCommand.class);
 	private final static String GO_TO_BOOKING_REQUESTS_PAGE = "Controller?command=GO_TO_BOOKING_REQUESTS_PAGE";
+	private final static String GO_TO_ERROR_PAGE = "Controller?command=GO_TO_ERROR_PAGE";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -45,7 +46,7 @@ public class SaveBookingChangesCommand implements Command{
 			//request.setAttribute("done", "");
 		} catch (NumberFormatException | ServiceException e) {
 			log.error(e);
-			response.sendRedirect("Controller?command=GO_TO_ERROR_PAGE");
+			response.sendRedirect(GO_TO_ERROR_PAGE);
 			e.printStackTrace();
 		}
 		

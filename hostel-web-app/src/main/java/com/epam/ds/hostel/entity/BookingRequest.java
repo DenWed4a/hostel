@@ -1,10 +1,15 @@
 package com.epam.ds.hostel.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
-public class BookingRequest {
+public class BookingRequest implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private Date startDate;
 	private Date endDate;

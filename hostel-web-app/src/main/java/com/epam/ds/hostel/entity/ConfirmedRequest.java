@@ -1,12 +1,17 @@
 package com.epam.ds.hostel.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 
 import com.epam.ds.hostel.entity.status.EntityStatus.ConfirmedRequestStatus;
 
-public class ConfirmedRequest {
+public class ConfirmedRequest implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private int billId;
 	private int administratorId;

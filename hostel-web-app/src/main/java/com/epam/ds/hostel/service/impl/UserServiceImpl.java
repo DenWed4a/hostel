@@ -7,7 +7,6 @@ import com.epam.ds.hostel.dao.UserDAO;
 import com.epam.ds.hostel.dao.exception.DAOException;
 import com.epam.ds.hostel.dao.impl.MySqlUserDAO;
 import com.epam.ds.hostel.entity.User;
-import com.epam.ds.hostel.entity.criteria.Criteria;
 import com.epam.ds.hostel.service.UserService;
 import com.epam.ds.hostel.service.exception.ServiceException;
 
@@ -82,25 +81,13 @@ public class UserServiceImpl implements UserService{
 		return user;
 	}
 
-	@Override
-	public User findUserByCriteria(Criteria criteria) throws ServiceException {
-		DAOFactory factory = DAOFactory.getInstance();
-		UserDAO userDAO = factory.getMySqlUserDAO();
-		User user;
-		try {
-			user =  userDAO.findUserByCriteria(criteria);
-		} catch (DAOException e) {
-			throw new ServiceException(e);
-		}
-		return user;
-	}
 
 	@Override
-	public void updateUserDetail(int userId, User user) throws ServiceException {
+	public void updateUserDetail(User user) throws ServiceException {
 		DAOFactory factory = DAOFactory.getInstance();
 		UserDAO userDAO = factory.getMySqlUserDAO();
 		try {
-			userDAO.updateUserDetail(userId, user);;
+			userDAO.updateUserDetail(user);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}
@@ -108,11 +95,11 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void updateUser(int userId, User user) throws ServiceException {
+	public void updateUser(User user) throws ServiceException {
 		DAOFactory factory = DAOFactory.getInstance();
 		UserDAO userDAO = factory.getMySqlUserDAO();
 		try {
-			userDAO.updateUser(userId, user);
+			userDAO.updateUser(user);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

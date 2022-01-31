@@ -64,6 +64,7 @@ public class GoToBookingProcessingPage implements Command{
 			request.setAttribute("lockers", freeLockers);
 			request.setAttribute("bill", bill);
 			request.setAttribute("bookingRequest", bookingRequest);
+			request.setAttribute("page", "booking_requests_page");
 		} catch (ServiceException e) {
 			log.error(e);
 			response.sendRedirect("Controller?command=GO_TO_ERROR_PAGE");

@@ -4,7 +4,6 @@ import java.util.List;
 
 
 import com.epam.ds.hostel.entity.BookingRequest;
-import com.epam.ds.hostel.entity.criteria.Criteria;
 import com.epam.ds.hostel.service.exception.ServiceException;
 
 public interface BookingRequestService {

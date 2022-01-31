@@ -1,7 +1,13 @@
 package com.epam.ds.hostel.entity;
 
-public class Bill {
+import java.io.Serializable;
+
+public class Bill implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private double totalAmount;
 	private BillStatus status;

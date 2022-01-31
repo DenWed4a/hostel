@@ -12,6 +12,7 @@ public interface BillDAO {
 	void saveBill(Bill bill) throws DAOException;
 	void updateBill(Bill bill) throws DAOException;
 	void deleteBill(int billId) throws DAOException;
+	void confirmPayment(Bill bill) throws DAOException;
 	
 
 }

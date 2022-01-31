@@ -33,9 +33,10 @@ public class GoToUserInfoPage implements Command{
 			userDetail = user.getDetail();
 			request.setAttribute("user", user);
 			request.setAttribute("userDetail", userDetail);
+			request.setAttribute("page", "booking_requests_page");
 			
 		} catch (NumberFormatException e) {
-			
+			response.sendRedirect("Controller?command=GO_TO_ERROR_PAGE");
 		} catch (ServiceException e) {
 			log.error(e);
 			response.sendRedirect("Controller?command=GO_TO_ERROR_PAGE");

@@ -15,9 +15,9 @@ import com.epam.ds.hostel.dao.exception.DAOException;
 import com.epam.ds.hostel.entity.BlackListUser;
 
 public class MySqlBlackListDAO implements BlackListDAO {
-	
+
 	private ConnectionPool cp = ConnectionPool.getInstance();
-	
+
 	private final static String ADD_USER = "INSERT INTO black_list (users_id, reason, since_date) VALUES(?,?, CURRENT_DATE())";
 	private final static String DELETE_FROM_BLACK_LIST = "DELETE FROM black_list WHERE users_id = ?";
 	private final static String CHECK_USER = "SELECT * FROM black_list WHERE users_id = ?";
@@ -75,7 +75,7 @@ public class MySqlBlackListDAO implements BlackListDAO {
 
 	@Override
 	public boolean checkBlackList(int userID) throws DAOException {
-	
+
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet resultSet = null;
@@ -104,10 +104,10 @@ public class MySqlBlackListDAO implements BlackListDAO {
 		return result;
 	}
 
-
 	@Override
 	public List<BlackListUser> allBlackListUsers() throws DAOException {
-		List<BlackListUser> result = new ArrayList<>();;
+		List<BlackListUser> result = new ArrayList<>();
+		;
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet resultSet = null;

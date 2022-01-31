@@ -11,9 +11,14 @@ import org.apache.log4j.Logger;
 
 import com.epam.ds.controller.Command;
 import com.epam.ds.hostel.entity.Bill;
+import com.epam.ds.hostel.entity.BookingRequest;
+import com.epam.ds.hostel.entity.User;
 import com.epam.ds.hostel.service.BillService;
+import com.epam.ds.hostel.service.BookingRequestService;
 import com.epam.ds.hostel.service.ServiceFactory;
+import com.epam.ds.hostel.service.UserService;
 import com.epam.ds.hostel.service.exception.ServiceException;
+import com.epam.ds.util.BillTotalCalculator;
 
 
 public class GoToBillPage implements Command{
@@ -23,13 +28,30 @@ public class GoToBillPage implements Command{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int billId = Integer.parseInt(request.getParameter("booking_id"));
+		int bookingRequestId = Integer.parseInt(request.getParameter("booking_id"));
 		ServiceFactory factory = ServiceFactory.getInstance();
 		BillService billService = factory.getBillService();
+		BookingRequestService bookingRequestService = factory.getBookingRequestService();
+		UserService userService = factory.getUserService();
+		
+		
+		User user;
 		Bill bill;
+		BookingRequest bookingRequest;
 		try {
-			bill =  billService.findBill(billId);
-			request.setAttribute("bill", bill);
+			
+			
+			bill =  billService.findBillByRequestId(bookingRequestId);			
+			request.setAttribute("bill", bill);		
+			bookingRequest = bookingRequestService.getBookingRequestById(bill.getBookingRequestID());		
+			request.setAttribute("bookingRequest", bookingRequest);			
+			user = userService.findById(bookingRequest.getClientId());			
+			request.setAttribute("user", user);			
+			request.setAttribute("page", "booking_requests_page");			
+			BillTotalCalculator billTotalCalculator = new BillTotalCalculator();			
+			request.setAttribute("calculator", billTotalCalculator);
+			
+			
 		} catch (ServiceException e) {
 			log.error(e);
 			e.printStackTrace();

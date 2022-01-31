@@ -1,8 +1,13 @@
 package com.epam.ds.hostel.entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class BlackListUser {
+public class BlackListUser implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private int userId;
 	private String reason;
 	private Date sinceDate;

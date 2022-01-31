@@ -2,7 +2,7 @@ package com.epam.ds.hostel.service;
 
 import java.util.List;
 
-
+import com.epam.ds.hostel.dao.exception.DAOException;
 import com.epam.ds.hostel.entity.Bill;
 import com.epam.ds.hostel.service.exception.ServiceException;
 
@@ -13,5 +13,6 @@ public interface BillService {
 	void saveBill(Bill bill) throws ServiceException;
 	void updateBill(Bill bill) throws ServiceException;
 	void deleteBill(int billId) throws ServiceException;
+	void confirmPayment(Bill bill) throws ServiceException;
 
 }
