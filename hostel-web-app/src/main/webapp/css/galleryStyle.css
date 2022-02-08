@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+.images{
+	max-width: 90vw;
+    margin: 50px auto 10px auto;
+   
+    min-height: 65px;
+    
+    background-color: rgba(255,255,255,0.9);
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+   
+}
+
+.image-row {
+	display: flex;
+	gap: 10px;
+}
+
+.image-row img {
+	max-width:49%;
+	
+}

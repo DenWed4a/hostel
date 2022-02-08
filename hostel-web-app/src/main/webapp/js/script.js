@@ -1,9 +1,14 @@
 /**
  * 
  */
-function getUrl(){
-	var actionURL = '<jsp:include page="userList.jsp"></jsp:include>';
-	var actionURL2 = 'asdasd'
-	var infoField = document.getElementById('ooo');
-	infoField.innerHTML = actionURL;	
+
+var input = document.getElementById('image_uploads');
+var preview = document.querySelector('preview');
+input.style.opacity = 0;
+
+
+function showButton(){
+	var div = document.getElementById("submit_hidden");
+	div.style.display = "block";
 }
+

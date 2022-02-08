@@ -7,6 +7,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<script src="https://kit.fontawesome.com/1aa736e549.js" crossorigin="anonymous"></script>
 </head>
 
 	<fmt:setLocale value="${sessionScope.local}" />
@@ -43,7 +44,12 @@
 <body>
 	
 	
-	<div class="header_top">	
+	<div class="header_top">
+		<div class="buttons_home_back">	
+			<a href="Controller?command=GO_TO_INDEX_PAGE"><i class="fas fa-home"></i></a>
+			<a href="${header.referer}"><i class="fas fa-arrow-alt-circle-left"></i></a>
+		</div>
+		
 		<div class="welcome_message">
 			<c:if test="${not empty role and role eq 'Administrator'}" var="isAdmin">	
 			<h1>Hello, Administrator!</h1>	
@@ -67,7 +73,7 @@
 			</form>
 		</div>
 	</div>
-	<c:if test="${page eq 'main_page'}">
+	<c:if test="${page eq 'main_page' or empty page}">
 		<div class="header_line">
 			<!--<form action="Controller?command=GO_TO_BOOKING_PAGE" method="post">
 				<input type="submit" value="booking"/>
@@ -78,9 +84,9 @@
 				<a href="Controller?command=GO_TO_MANAGEMENT_PAGE">${management}</a>
 				</c:if>
 				<a href="Controller?command=GO_TO_BOOKING_PAGE">${booking}</a>
-				<a href="">${gallery}</a>
+				<a href="Controller?command=GO_TO_GALLERY_PAGE">${gallery}</a>
 				<a href="">${contacts}</a>
-				<a href="">${reviews}</a>
+				<a href="Controller?command=GO_TO_REVIEWS_PAGE">${reviews}</a>
 				<a href="Controller?command=GO_TO_TEST">TEST</a>	
 			</div>
 			
@@ -130,6 +136,55 @@
 			
 		</div>
 	</c:if>
+	
+	<c:if test="${page eq 'places_list'}">
+			
+			<div class="header_line">
+			
+			<div class="header_buttons">
+				<a href="Controller?command=GO_TO_PLACES_LIST_PAGE&button=new">add new</a>		
+			</div>
+			
+			<div class="logination_registration">
+				<c:if test="${empty role}" var = "isUnknownUser">
+					<a href="Controller?command=GO_TO_LOGINATION_PAGE" >${login_in}</a>					
+					<a href="Controller?command=GO_TO_REGISTRATION_PAGE">${registration}</a>
+				</c:if>
+			
+				<c:if test="${not empty login}" var="isLoginIn">
+						<a href="Controller?command=GO_TO_ACCAUNT_PAGE">${my_account}</a>
+						<a href="Controller?command=LOGOUT">${login_out}</a>	
+				</c:if>
+			</div>
+			
+		</div>
+	</c:if>
+	
+	
+	<c:if test="${page eq 'lockers_list'}">
+			
+			<div class="header_line">
+			
+			<div class="header_buttons">
+				<a href="Controller?command=GO_TO_LOCKERS_LIST_PAGE&button=new">add new</a>		
+			</div>
+			
+			<div class="logination_registration">
+				<c:if test="${empty role}" var = "isUnknownUser">
+					<a href="Controller?command=GO_TO_LOGINATION_PAGE" >${login_in}</a>					
+					<a href="Controller?command=GO_TO_REGISTRATION_PAGE">${registration}</a>
+				</c:if>
+			
+				<c:if test="${not empty login}" var="isLoginIn">
+						<a href="Controller?command=GO_TO_ACCAUNT_PAGE">${my_account}</a>
+						<a href="Controller?command=LOGOUT">${login_out}</a>	
+				</c:if>
+			</div>
+			
+		</div>
+	</c:if>
+	
+	
 
 </body>
 </html>

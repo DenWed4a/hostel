@@ -67,8 +67,8 @@
 			
 			<a href="Controller?command=GO_TO_BOOKING_REQUESTS_PAGE">${list_booking_requests}</a>
 			<a href="Controller?command=GO_TO_USER_LIST">${users_list}</a>
-			<a href="">${bed_places_list}</a>
-			<a href="">${lockers_list}</a>
+			<a href="Controller?command=GO_TO_PLACES_LIST_PAGE">${bed_places_list}</a>
+			<a href="Controller?command=GO_TO_LOCKERS_LIST_PAGE">${lockers_list}</a>
 			
 	
 		</div>

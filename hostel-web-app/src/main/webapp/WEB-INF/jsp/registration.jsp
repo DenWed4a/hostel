@@ -20,14 +20,18 @@
 	<fmt:message bundle="${loc}" key="local.user.info.phone.number" var="phone_number"/>
 	<fmt:message bundle="${loc}" key="local.user.info.email" var="email"/>
 	<fmt:message bundle="${loc}" key="local.button.registration" var="registration"/>
-	<fmt:message bundle="${loc}" key="local.complite" var="complite"/>
+	<fmt:message bundle="${loc}" key="local.complete" var="complete"/>
+	<fmt:message bundle="${loc}" key="local.button.back_to_main_page" var="back_to_main"/>
+	<fmt:message bundle="${loc}" key="local.already.have.an.account" var="question"/>
+	<fmt:message bundle="${loc}" key="local.button.logination" var="log_in_button"/>
+	
 	
 </head>
 
   
 <style>
 label {
-	width: 120px;
+	width: 170px;
 	display: inline-block;
 }
 </style>
@@ -82,10 +86,16 @@ label {
 				<label for="6">${email}:</label>
 				<input id="6" type = "text" name = "email" value = ""/>
 			</div>
-			<input type = "submit" value = "${complite}"></input>
-			<a href = "/hostel-web-app">${back_to_main}</a>									
+			<input type = "submit" value = "${complete}"></input>
+			
+				<a class="centration" href = "/hostel-web-app">${back_to_main}</a>	
+				<div class="centration">${question}<a href="Controller?command=GO_TO_LOGINATION_PAGE">${log_in_button}</a></div>
+									
 		</form>
 	</div>
+			
+			
+			
 
 </body>
 </html>

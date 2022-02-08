@@ -21,7 +21,7 @@
 	<fmt:message bundle="${loc}" key="local.user.info.surname" var="surname"/>
 	<fmt:message bundle="${loc}" key="local.user.info.phone.number" var="phoneNumber"/>
 	<fmt:message bundle="${loc}" key="local.user.info.email" var="email"/>
-	<fmt:message bundle="${loc}" key="local.role" var="role"/>
+	<fmt:message bundle="${loc}" key="local.role" var="user_role"/>
 	<fmt:message bundle="${loc}" key="local.residents" var="residents"/>
 	<fmt:message bundle="${loc}" key="local.button.all" var="all"/>
 	
@@ -36,13 +36,14 @@
 
 	<c:set var="user_list" scope="page" value="${users}"/>
 	<c:set var="user_id_id" scope="page" value="${user_id}"/>
+	<c:set var="user_set" scope="page" value="${users_set}"/>
 	
 	
 		<div class="header_top">
 	
 		<div class="buttons_home_back">	
 			<a href="Controller?command=GO_TO_INDEX_PAGE"><i class="fas fa-home"></i></a>
-			<a href="Controller?command=GO_TO_INDEX_PAGE"><i class="fas fa-arrow-alt-circle-left"></i></a>
+			<a href="Controller?command=GO_TO_MANAGEMENT_PAGE"><i class="fas fa-arrow-alt-circle-left"></i></a>
 		</div>	
 		
 		<div class="welcome_message">
@@ -74,7 +75,7 @@
 		<div class="header_buttons">
 			<a  href="#booking_hidden_buttons">${guests}</a>
 				<div id="booking_hidden_buttons">
-					<a href="Controller?command=GO_TO_USER_LIST&table_name=clients">${residents}</a>
+					<a href="Controller?command=GO_TO_USER_LIST&table_name=residents">${residents}</a>
 					<a href="Controller?command=GO_TO_USER_LIST&table_name=clients">${all}</a>			
 				</div>
 			
@@ -107,31 +108,107 @@
 						<th>${surname}</th>
 						<th>${phoneNumber}</th>
 						<th>${email}</th>
-						<th>${role}</th>
+						<th>${user_role}</th>
 						
 					</tr>
-					<c:forEach  items = "${user_list}" var="i">
-						<c:if test="${i.role eq 'CLIENT' and table_name eq 'clients'}">		
+					
+					<c:if test="${table_name eq 'residents'}">
+						<c:forEach items = "${user_set}" var="i">
 							<tr>
-								<td>${i.id}</td>
+								<td><a href="Controller?command=GO_TO_USER_INFO_PAGE&id=${i.id}&p_page=user_list">${i.id}</a></td>
 								<td><img class="user_photo" src="${pageContext.request.contextPath}${i.detail.image}" alt=" "></td>
 								<td>${i.detail.name}</td>
 								<td>${i.detail.surname}</td>
 								<td>${i.detail.phoneNumber}</td>
 								<td>${i.detail.email}</td>
-								<td>${i.role}</td>						
+								<td>
+								<form method="post" action="Controller?command=CHANGE_USER_ROLE&user_id=${i.id}">
+									<select name="select_role">
+										<option selected>${i.role}</option>
+										<option value="0">CLIENT</option>
+										<option value="1">ADMINISTRATOR</option>
+										<option value="2">MODERATOR</option>										
+									</select>
+									<input type="submit" value="save">
+								</form>								
+								</td>						
+							</tr>
+						
+						</c:forEach>
+						
+					
+					</c:if>
+					
+					<c:forEach  items = "${user_list}" var="i">
+					
+						<c:if test="${empty table_name}">		
+							<tr>
+								<td><a href="Controller?command=GO_TO_USER_INFO_PAGE&id=${i.id}&p_page=user_list">${i.id}</a></td>
+								<td><img class="user_photo" src="${pageContext.request.contextPath}${i.detail.image}" alt=" "></td>
+								<td>${i.detail.name}</td>
+								<td>${i.detail.surname}</td>
+								<td>${i.detail.phoneNumber}</td>
+								<td>${i.detail.email}</td>
+								<td>
+								<form method="post" action="Controller?command=CHANGE_USER_ROLE&user_id=${i.id}">
+									<select name="select_role">
+										<option selected>${i.role}</option>
+										<option value="0">CLIENT</option>
+										<option value="1">ADMINISTRATOR</option>
+										<option value="2">MODERATOR</option>										
+									</select>
+									<input type="submit" value="save">
+								</form>								
+								</td>						
+							</tr>
+						</c:if>
+						
+						
+					
+					
+					
+					
+						<c:if test="${i.role eq 'CLIENT' and table_name eq 'clients'}">		
+							<tr>
+								<td><a href="Controller?command=GO_TO_USER_INFO_PAGE&id=${i.id}&p_page=user_list">${i.id}</a></td>
+								<td><img class="user_photo" src="${pageContext.request.contextPath}${i.detail.image}" alt=" "></td>
+								<td>${i.detail.name}</td>
+								<td>${i.detail.surname}</td>
+								<td>${i.detail.phoneNumber}</td>
+								<td>${i.detail.email}</td>
+								<td>
+								<form method="post" action="Controller?command=CHANGE_USER_ROLE&user_id=${i.id}">
+									<select name="select_role">
+										<option selected>${i.role}</option>
+										<option value="0">CLIENT</option>
+										<option value="1">ADMINISTRATOR</option>
+										<option value="2">MODERATOR</option>										
+									</select>
+									<input type="submit" value="save">
+								</form>								
+								</td>						
 							</tr>
 						</c:if>
 						
 						<c:if test="${table_name eq 'employees' and (i.role eq 'ADMINISTRATOR' or i.role eq 'MODERATOR')}">
 							<tr>
-								<td>${i.id}</td>
+								<td><a href="Controller?command=GO_TO_USER_INFO_PAGE&id=${i.id}&p_page=user_list">${i.id}</a></td>
 								<td><img class="user_photo" src="${pageContext.request.contextPath}${i.detail.image}" alt=" "></td>
 								<td>${i.detail.name}</td>
 								<td>${i.detail.surname}</td>
 								<td>${i.detail.phoneNumber}</td>
 								<td>${i.detail.email}</td>
-								<td>${i.role}</td>						
+								<td>
+								<form method="post" action="Controller?command=CHANGE_USER_ROLE&user_id=${i.id}">
+									<select name="select_role">
+										<option selected>${i.role}</option>
+										<option value="0">CLIENT</option>
+										<option value="1">ADMINISTRATOR</option>
+										<option value="2">MODERATOR</option>										
+									</select>
+									<input type="submit" value="save">
+								</form>
+								</td>						
 							</tr>
 						</c:if>			
 					
@@ -140,39 +217,6 @@
 				
 				</table>	
 			</div>
-			
-		<c:if test="${user_id_id eq 3}">
-			<div class="table">
-				<table class="user_list_table">
-					<tr class="sticky">
-						<th>Id</th>
-						<th>${photo}</th>
-						<th>${name}</th>
-						<th>${surname}</th>
-						<th>${phoneNumber}</th>
-						<th>${email}</th>
-						<th>${role}</th>
-						
-					</tr>
-					<c:forEach  items = "${user_list}" var="i">	
-												
-							<tr>
-								<td>${i.id}</td>
-								<td><img class="user_photo" src="${pageContext.request.contextPath}${i.detail.image}" alt=" "></td>
-								<td>${i.detail.name}</td>
-								<td>${i.detail.surname}</td>
-								<td>${i.detail.phoneNumber}</td>
-								<td>${i.detail.email}</td>
-								<td>${i.role}</td>						
-							</tr>
-												
-					</c:forEach>
-				
-				</table>	
-			</div>
-		</c:if>
-			
-
 
 </body>
 </html>

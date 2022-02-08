@@ -87,7 +87,7 @@
 		<input type="hidden" name="endDate" value="${endDate}">
 		<input type="hidden" name="numberPlaces" value="${numberPlaces}">
 		<input type="hidden" name="numberLokers" value="${numberLockers}">
-		<input type="submit" value="${book}"/>
+		<input class="proforma_submit" type="submit" value="${book}"/>
 	</form>
 	</div>
 	

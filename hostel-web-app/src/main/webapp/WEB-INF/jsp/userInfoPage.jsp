@@ -28,48 +28,56 @@
 	<fmt:message bundle="${loc}" key="local.user.info.passport.number" var="passport_number"/>
 	<fmt:message bundle="${loc}" key="local.user.info.passport.date.of.issue" var="passport_date_of_issue"/>
 	<fmt:message bundle="${loc}" key="local.user.info.passport.date.of.expire" var="passport_date_of_expire"/>
+	<fmt:message bundle="${loc}" key="local.button.save" var="save"/>
 	
 
 	
 	
 </head>
 <body>
+	<c:set var="privious_page" value="${p_page}"/>
+		
 	<jsp:include page="blank/Header.jsp"></jsp:include>
+	
+	<form id="user_info_form" method="post" action="Controller?command=SAVE_ACCAUNT_CHANGES&p_page=${privious_page}">
 		<div class="table">
+		<input type="hidden" name="login" value="${user.login}"/>
+		<input type="hidden" name="role" value="${user.role}"/>
+		<input type="hidden" name="image" value="${userDetail.image}"/>
 		<table>
 			<tr>
 				<td>Id</td>
-				<td>${userInfo.id}</td>		
+				<td>${userInfo.id}<input type = "hidden" name = "id" value="${userInfo.id}"/></td>		
 			</tr>
 			
 			<tr>
 				<td>${name}</td>
-				<td>${userDetailInfo.name}</td>	
+				<td><input type = "text" name = "name" value="${userDetailInfo.name}"/></td>	
 			</tr>
 			
 			<tr>
 				<td>${surname}</td>
-				<td>${userDetailInfo.surname}</td>	
+				<td><input type = "text" name = "surname" value="${userDetailInfo.surname}"/></td>	
 			</tr>
 			
 			<tr>
 				<td>${phone_number}</td>
-				<td>${userDetailInfo.phoneNumber}</td>	
+				<td><input type = "text" name = "phoneNumber" value="${userDetailInfo.phoneNumber}"/></td>	
 			</tr>
 			
 			<tr>
 				<td>${email}</td>
-				<td>${userDetailInfo.email}</td>	
+				<td><input type = "text" name = "email" value="${userDetailInfo.email}"/></td>	
 			</tr>
 			
 			<tr>
 				<td>${rating}</td>
-				<td>${userDetailInfo.rating}</td>	
+				<td><input type = "text" name = "rating" value="${userDetailInfo.rating}"/></td>	
 			</tr>
 			
 			<tr>
 				<td>${address}</td>
-				<td>${userDetailInfo.address}</td>	
+				<td><input type = "text" name = "address" value="${userDetailInfo.address}"/></td>	
 			</tr>
 			
 						
@@ -86,34 +94,34 @@
 			
 			<tr>
 				<td>${nationality}</td>
-				<td>${userDetailInfo.nationality}</td>	
+				<td><input type = "text" name = "nationality" value="${userDetailInfo.nationality}"/></td>	
 			</tr>
 			
 			<tr>
 				<td>${date_of_birth}</td>
-				<td>${userDetailInfo.dateOfBirth}</td>	
+				<td><input type = "date" name = "dateOfBirth" value="${userDetailInfo.dateOfBirth}"/></td>	
 			</tr>
 			
 			<tr>
 				<td>${passport_number}</td>
-				<td>${userDetailInfo.passportNumber}</td>	
+				<td><input type = "text" name = "passportNumber" value="${userDetailInfo.passportNumber}"/></td>	
 			</tr>
 			
 			<tr>
 				<td>${passport_date_of_issue}</td>
-				<td>${userDetailInfo.passportDateOfIssue}</td>	
+				<td><input type = "date" name = "issue" value="${userDetailInfo.passportDateOfIssue}"/></td>	
 			</tr>
 			
 			<tr>
 				<td>${passport_date_of_expire}</td>
-				<td>${userDetailInfo.passportDateOfExpire}</td>	
+				<td><input type = "date" name = "expire" value="${userDetailInfo.passportDateOfExpire}"/></td>	
 			</tr>
-			
-	
-			
 		
 		</table>
+			
 		</div>
-
+		<input id="user_info_submit" type="submit" value="${save}"/>
+		</form>
+	
 </body>
 </html>

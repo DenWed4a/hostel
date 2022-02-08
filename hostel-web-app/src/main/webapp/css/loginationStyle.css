@@ -105,15 +105,16 @@ a {
 	width: 60px;	
 	border: none;
 	background: white;	
+	font-size: 14px;
 }
 
 .login_forms_column > input {	
-	width: 100px;
+	width: 218px;
 	height: 30px;	
 	border: none;
 	background: white;
 	align-self: center;
-	font-size: 18px;
+	font-size: 14px;
 	text-transform: uppercase;
 	margin: 15px 0 0 0;
 }
@@ -125,6 +126,13 @@ a {
 }
 .buttons_home_back{
 	margin-left: 30px;
+}
+
+.centration{
+	align-self: center;
+}
+.centration a{
+	margin-left: 5px;
 }
 
 

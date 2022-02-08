@@ -53,7 +53,7 @@
 	
 		<div class="buttons_home_back">	
 			<a href="Controller?command=GO_TO_INDEX_PAGE"><i class="fas fa-home"></i></a>
-			<a href="Controller?command=GO_TO_INDEX_PAGE"><i class="fas fa-arrow-alt-circle-left"></i></a>
+			<a href="Controller?command=GO_TO_MANAGEMENT_PAGE"><i class="fas fa-arrow-alt-circle-left"></i></a>
 		</div>	
 		
 		<div class="welcome_message">
@@ -135,7 +135,7 @@
 							<td>${i.numberOfPlaces}</td>
 							<td>${i.numberOfLockers}</td>
 							<td>${i.status}</td>
-							<td><a href="Controller?command=GO_TO_USER_INFO_PAGE&id=${i.clientId}">${i.clientId}</a></td>
+							<td><a href="Controller?command=GO_TO_USER_INFO_PAGE&id=${i.clientId}&p_page=user_info_page">${i.clientId}</a></td>
 							<td>${i.timeOfCreation}</td>	
 							<td><a href="Controller?command=GO_TO_CHANGE_BOOKING_REQUEST&booking_request_id=${i.id}"><i class="fas fa-pen"></i></a></td>							
 							<td><a href="Controller?command=DELETE_BOOKING_REQUEST&booking_request_id=${i.id}"><i class="far fa-trash-alt"></i></a></td>							
@@ -151,7 +151,7 @@
 							<td>${i.numberOfPlaces}</td>
 							<td>${i.numberOfLockers}</td>
 							<td>${i.status}</td>
-							<td><a href="Controller?command=GO_TO_USER_INFO_PAGE&id=${i.clientId}">${i.clientId}</a></td>
+							<td><a href="Controller?command=GO_TO_USER_INFO_PAGE&id=${i.clientId}&p_page=user_info_page">${i.clientId}</a></td>
 							<td>${i.timeOfCreation}</td>	
 							<td> <a  href="Controller?command=GO_TO_BOOKING_PROCESSING_PAGE&booking_request_id=${i.id}"><i class="fas fa-pen"></i></a></td>
 							<td><a href="Controller?command=DELETE_BOOKING_REQUEST&booking_request_id=${i.id}"><i class="far fa-trash-alt"></i></a></td>						
@@ -166,7 +166,7 @@
 							<td>${i.numberOfPlaces}</td>
 							<td>${i.numberOfLockers}</td>
 							<td>${i.status}</td>
-							<td><a href="Controller?command=GO_TO_USER_INFO_PAGE&id=${i.clientId}">${i.clientId}</a></td>
+							<td><a href="Controller?command=GO_TO_USER_INFO_PAGE&id=${i.clientId}&p_page=user_info_page">${i.clientId}</a></td>
 							<td>${i.timeOfCreation}</td>	
 							<td> <a  href="Controller?command=GO_TO_BOOKING_PROCESSING_PAGE&booking_request_id=${i.id}"><i class="fas fa-pen"></i></a></td>
 							<td><a href="Controller?command=DELETE_BOOKING_REQUEST&booking_request_id=${i.id}"><i class="far fa-trash-alt"></i></a></td>						

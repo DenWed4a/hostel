@@ -136,7 +136,7 @@ label {
 .table,
 .wrapper {
 	max-width: 80vw;
-	margin: 50px auto;
+	margin: 50px auto 10px auto;
 	max-height: 400px;
 	overflow: auto;
 	min-height: 65px;
@@ -362,4 +362,29 @@ table.user_list_table tr:not(:first-child){
 
 #personal-info .flex-row span:first-child {
 	font-weight: 500;
+}
+.photo_button{
+	position: relative;
+}
+.photo_button button{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	z-index: 5;
+}
+
+#submit_hidden{
+	display: none;
+}
+#user_info_submit{
+	width: 100px;
+	margin: 0 auto 10px auto;
+}
+#user_info_form{
+	display:flex;
+	flex-direction: column;
+	justify-content: space-around;
+}
+.places_list_hidden_form{
+	display:none;
 }

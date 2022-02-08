@@ -5,53 +5,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Insert title here</title>
+		<link rel="stylesheet" href="css/testStyle.css" type="text/css">
+		<script src="https://kit.fontawesome.com/1aa736e549.js" crossorigin="anonymous"></script>
 </head>
 <body>
-	<jsp:include page="blank/Header.jsp"></jsp:include>
-	<c:set var="bill" scope="page" value="${bill}"/>
 	
-  	<div class="bill">
-	  	<h2>счет № id</h2>
-	  	
-	  	<div>Гость: смирнов</div>
-	  	<div id="dates">
-	  	<div>дата въезда-</div>   
-	  	<div>дата выезда</div>
-	  	</div>
-	  	<table border=1 id="bill_table">
-	  		<tr>
-	  		
-	  		<th>наименование</th>
-	  		<th>колличество</th>
-	  		<th>дней проживания</th>
-	  		<th>тариф, руб.</th>
-	  		<th>стоимость, руб.</th>
-	  		</tr>
-	  		
-	  		<tr>
-	  		<td>спальное место</td>
-	  		<td>2</td>
-	  		<td>10</td>
-	  		<td>4</td>
-	  		<td>500</td>
-	  		</tr>
-	  		
-	  		<tr>
-	  		<td>место для хранения</td>
-	  		<td>5</td>
-	  		<td>123</td>
-	  		<td>123</td>
-	  		<td>345</td>
-	  		</tr>
 	
-	  	</table>	
-	  	<div id="total_in_bill">итого:</div>  	
-  	</div>
-  	
-  		<div id="bill_button"><button>распечатать</button>
-	  	<button>подтвердить оплату</button>
-	  	</div>
+	<form method="post" enctype="multipart/form-data" action="Controller?command=GO_TO_TEST">
+		<div>
+			<label onclick="showButton()" for="image_uploads"><i class="fas fa-edit"></i></label>
+			<input type="file" id = "image_uploads" name="photo"/>
+		</div>
+		<div id="submit_hidden">
+			<input type="submit" value="ok"/> 
+		</div>	
+	</form>
+	<script src="js/script.js"></script>
 </body>
 </html>
