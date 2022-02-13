@@ -85,9 +85,8 @@
 				</c:if>
 				<a href="Controller?command=GO_TO_BOOKING_PAGE">${booking}</a>
 				<a href="Controller?command=GO_TO_GALLERY_PAGE">${gallery}</a>
-				<a href="">${contacts}</a>
-				<a href="Controller?command=GO_TO_REVIEWS_PAGE">${reviews}</a>
-				<a href="Controller?command=GO_TO_TEST">TEST</a>	
+				<a href="Controller?command=GO_TO_CONTACTS_PAGE">${contacts}</a>
+				<a href="Controller?command=GO_TO_REVIEWS_PAGE">${reviews}</a>	
 			</div>
 			
 			<div class="logination_registration">

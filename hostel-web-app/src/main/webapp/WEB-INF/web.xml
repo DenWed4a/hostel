@@ -35,6 +35,16 @@
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 	
+	<filter>
+		<filter-name>AutorizationFilter</filter-name>
+		<filter-class>com.epam.ds.filter.AutorizationFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>AutorizationFilter</filter-name>
+		<servlet-name>Controller</servlet-name>
+	
+	</filter-mapping>
+	
 	<listener>
 		<listener-class>com.epam.ds.listener.AppContextListener</listener-class>
 	</listener>

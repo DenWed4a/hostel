@@ -26,6 +26,7 @@
 	<fmt:message bundle="${loc}" key="local.button.my.account" var="my_account"/>
 	<fmt:message bundle="${loc}" key="local.button.registration" var="registration"/>
 	<fmt:message bundle="${loc}" key="local.button.logination" var="login_in"/>
+	<fmt:message bundle="${loc}" key="local.room" var="room"/>
 	
 	<script src="https://kit.fontawesome.com/1aa736e549.js" crossorigin="anonymous"></script>
 </head>
@@ -101,6 +102,7 @@
 					<tr class="sticky">
 						<th>Id</th>
 						<th>${tier}</th>
+						<th>${room}</th>
 						<th></th>	
 					</tr>
 
@@ -108,6 +110,7 @@
 					<tr>
 						<td>${i.id}</td>
 						<td>${i.tier}</td>
+						<td>${i.room}</td>
 						<td><input name="bed_places_id" type="checkbox" value="${i.id}"></td>												
 					</tr>
 					</c:forEach>

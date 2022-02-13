@@ -16,6 +16,7 @@ a {
 body {
 	background: url("../images/bgMainPage.jpg") no-repeat;
 	background-size: 100% auto;
+	background-attachment: fixed;
 }
 
 .header_top {
@@ -387,4 +388,9 @@ table.user_list_table tr:not(:first-child){
 }
 .places_list_hidden_form{
 	display:none;
+}
+#history{
+	display: flex;
+	gap: 10px;
+	font-size: 17px;
 }

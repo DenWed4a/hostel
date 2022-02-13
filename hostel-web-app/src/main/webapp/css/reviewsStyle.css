@@ -1,5 +1,60 @@
 @charset "UTF-8";
 
-#personal-photo{
-	
+
+.user_review{	
+	max-width: 70vw;
+    margin: 50px auto 5px auto;
+    min-height: 65px;
+    background-color: rgba(255,255,255,0.9);
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    
+    gap: 10px;
+}
+
+.administrator_answer{
+	max-width: 60vw;
+    margin: 0px auto 10px auto;
+    min-height: 25px;
+    background-color: rgba(255,255,255,0.9);
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    gap: 10px;
+}
+.image_admin{
+	display: flex;
+	flex-direction: column;	 
+}
+.image_admin label{
+	text-transform: lowercase;
+	font-size: 13px;
+	color: blue;
+}
+
+
+#admin-image{
+	max-width: 70px;
+}
+#personal-image{
+	max-width: 100px;
+}
+.image{
+	display: flex;
+	flex-direction: column;
+}
+
+#review_form{
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+.topic{
+	display: flex;
+	gap: 5px;
+	align-items: flex-start;
+}
+.review_form_span{
+	min-width: 170px; 
 }

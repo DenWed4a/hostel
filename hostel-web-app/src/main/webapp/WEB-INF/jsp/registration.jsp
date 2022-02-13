@@ -36,7 +36,6 @@ label {
 }
 </style>
 
-
 <link rel="stylesheet" href="css/loginationStyle.css" type="text/css">
 <body>
 
@@ -84,7 +83,7 @@ label {
 			</div>
 			<div class="form-row">
 				<label for="6">${email}:</label>
-				<input id="6" type = "text" name = "email" value = ""/>
+				<input id="6" type = "email" name = "email" value = ""/>
 			</div>
 			<input type = "submit" value = "${complete}"></input>
 			
@@ -93,8 +92,7 @@ label {
 									
 		</form>
 	</div>
-			
-			
+	
 			
 
 </body>

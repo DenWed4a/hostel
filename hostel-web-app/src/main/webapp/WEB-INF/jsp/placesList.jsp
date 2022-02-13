@@ -24,7 +24,7 @@
 			<table class="user_list_table">
 				<tr class="sticky">
 					<th>Id</th>
-					<th>${photo}</th>
+					
 					<th>${room}</th>
 					<th>${tier}</th>
 					<th>${status}</th>						
@@ -32,7 +32,7 @@
 				<c:forEach items = "${placesList}" var="i">
 					<tr>
 						<td>${i.id}</td>
-						<td>${i.imagePath}</td>
+						
 						<td>${i.room}</td>
 						<td>${i.tier}</td>
 						<td>${i.status}</td>										
@@ -44,17 +44,16 @@
 	</c:if>
 	<c:if test="${button eq 'new'}">
 		<div class="table">		
-			<form method="post" enctype="multipart/form-data" action="Controller?command=ADD_NEW_PLACE">		
+			<form method="post"  action="Controller?command=ADD_NEW_PLACE">		
 				<table class="user_list_table">
 					<tr class="sticky">				
-						<th>${photo}</th>
 						<th>${room}</th>
 						<th>${tier}</th>
 						<th>${status}</th>
 						<th></th>						
 					</tr>	
 					<tr>
-					<td><input type="file" name="photo"/></td>
+					
 						<td><select name="room">
 							<option value="101">101</option>
 							<option value="102">102</option>
@@ -69,7 +68,7 @@
 							<option value="1">1</option>
 							<option value="2">2</option>		
 						</select></td>
-						<td><select>
+						<td><select name="status">
 							<option value="0">active</option>
 							<option value="1">frozen</option>			
 						</select></td>

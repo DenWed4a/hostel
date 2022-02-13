@@ -83,10 +83,28 @@
 				<div class="flex-row">
 					<span>Address:</span>
 					<span>${detail.address}</span>
-				</div>			
+				</div>
+				
+				<h3>History</h3>
+				<c:forEach items="${history}" var="i">
+				<c:set var="booking_request" value="${i.key}"/>
+				<c:set var="confirmed_request" value="${i.value}"/>
+				<div id="history">
+					<span>${booking_request.startDate}</span>
+					<span>${booking_request.endDate}</span>
+					<span>${confirmed_request.status}</span>
+					<span><a href="Controller?command=GO_TO_REVIEW_FORM&bk_request_id=${booking_request.id}"><i class="far fa-comment"></i></a></span>
+				</div>
+				
+				</c:forEach>			
 			</div>
+			
+			
+			
 			</div>
 		</c:if>
+		
+		
 		
 		<c:if test="${button eq 'edit'}">
 			

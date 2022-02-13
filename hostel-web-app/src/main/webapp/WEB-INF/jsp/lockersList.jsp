@@ -23,15 +23,14 @@
 		<div class="table">
 			<table class="user_list_table">
 				<tr class="sticky">
-					<th>Id</th>
-					<th>${photo}</th>
+					<th>Id</th>				
 					<th>${type}</th>
 					<th>${status}</th>						
 				</tr>
 				<c:forEach items = "${lockerList}" var="i">
 					<tr>
 						<td>${i.id}</td>
-						<td>${i.imagePath}</td>
+						
 						<td>${i.size}</td>
 						<td>${i.status}</td>										
 					</tr>
@@ -42,22 +41,21 @@
 	
 	<c:if test="${button eq 'new'}">
 		<div class="table">		
-			<form method="post" enctype="multipart/form-data" action="Controller?command=ADD_NEW_PLACE">		
+			<form method="post"  action="Controller?command=ADD_NEW_LOCKER">		
 				<table class="user_list_table">
-					<tr class="sticky">				
-						<th>${photo}</th>
+					<tr class="sticky">										
 						<th>${type}</th>
 						<th>${status}</th>
 						<th></th>						
 					</tr>	
 					<tr>
-					<td><input type="file" name="photo"/></td>
+					
 						<td><select name="type">
 							<option value="SMALL">SMALL</option>
 							<option value="NORMAL">NORMAL</option>
 							<option value="BIG">BIG</option>							
 						</select></td>
-						<td><select>
+						<td><select name="status">
 							<option value="0">active</option>
 							<option value="1">frozen</option>			
 						</select></td>

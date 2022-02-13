@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="css/galleryStyle.css" type="text/css">
 </head>
-<body style="background-image:none; background-color: black;">
+<body>
 	<jsp:include page="blank/Header.jsp"></jsp:include>
 	
 	<div class="images">
