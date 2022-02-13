@@ -133,7 +133,7 @@ public class MySqlBookingRequestDAO implements BookingRequestDAO {
 	}
 
 	@Override
-	public List<BookingRequest> findBookingRequest(int userId) throws DAOException {
+	public List<BookingRequest> findBookingRequestsByUserId(int userId) throws DAOException {
 		List<BookingRequest> result = new ArrayList<BookingRequest>();
 
 		Connection con = null;

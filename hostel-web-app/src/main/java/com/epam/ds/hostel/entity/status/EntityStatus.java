@@ -1,6 +1,6 @@
 package com.epam.ds.hostel.entity.status;
 
-import javax.management.loading.PrivateClassLoader;
+
 
 public final class EntityStatus {
 	public static enum ConfirmedRequestStatus{

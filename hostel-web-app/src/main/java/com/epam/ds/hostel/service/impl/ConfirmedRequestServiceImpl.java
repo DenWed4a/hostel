@@ -2,7 +2,7 @@ package com.epam.ds.hostel.service.impl;
 
 import java.util.List;
 
-import org.eclipse.jdt.internal.compiler.ast.ThrowStatement;
+
 
 import com.epam.ds.hostel.dao.ConfirmedRequestDAO;
 import com.epam.ds.hostel.dao.DAOFactory;

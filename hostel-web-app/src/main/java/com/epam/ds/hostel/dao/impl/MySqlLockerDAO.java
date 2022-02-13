@@ -19,11 +19,12 @@ import com.epam.ds.hostel.entity.Locker;
 import com.epam.ds.hostel.entity.LockerType;
 import com.epam.ds.hostel.entity.status.EntityStatus.LockerStatus;
 
+
 public class MySqlLockerDAO implements LockerDAO {
 
 	private ConnectionPool cp = ConnectionPool.getInstance();
 
-	private final static String ADD_NEW_LOCKER = "INSERT INTO lockers (type, image) VALUES (?,?)";
+	private final static String ADD_NEW_LOCKER = "INSERT INTO lockers (type, status) VALUES (?,?)";
 	private final static String GET_ALL_LOCKERS = "SELECT * FROM lockers";
 	private final static String GET_LOCKER_BY_ID = "SELECT * FROM lockers WHERE (id = ?)";
 	private final static String GET_FREE_LOCKERS = "SELECT lockers.id, lockers.type, lockers.image, lockers.status "
@@ -41,7 +42,7 @@ public class MySqlLockerDAO implements LockerDAO {
 			con = cp.takeConnection();
 			pst = con.prepareStatement(ADD_NEW_LOCKER);
 			pst.setString(1, locker.getSize().toString());
-			pst.setString(2, locker.getImagePath());
+			pst.setInt(2, locker.getStatus().getTitle());
 			pst.executeUpdate();
 
 		} catch (ConnectionPoolException e) {
@@ -74,11 +75,13 @@ public class MySqlLockerDAO implements LockerDAO {
 				int id = resultSet.getInt(1);
 				String type = resultSet.getString(2);
 				String imagePath = resultSet.getString(3);
+				int status = resultSet.getInt(4);
 				Locker locker = new Locker();
 
 				locker.setId(id);
 				locker.setImagePath(imagePath);
 				locker.setSize(LockerType.valueOf(type));
+				locker.setStatus(LockerStatus.values()[status]);
 				result.add(locker);
 			}
 

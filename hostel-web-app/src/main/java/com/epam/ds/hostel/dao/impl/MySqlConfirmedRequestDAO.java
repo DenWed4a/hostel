@@ -208,15 +208,17 @@ public class MySqlConfirmedRequestDAO implements ConfirmedRequestDAO {
 		Connection con = null;
 		PreparedStatement pst = null;
 		ResultSet resultSet = null;
-		ConfirmedRequest result;
+		ConfirmedRequest result = null;
 
 		try {
 			con = cp.takeConnection();
 			pst = con.prepareStatement(FIND_REQUEST_BY_ID);
 			pst.setInt(1, id);
 			resultSet = pst.executeQuery();
-			resultSet.next();
+			
+			if(resultSet.next()) {
 			result = ConfirmedRequestCreator.getInstance().create(resultSet);
+			}
 
 		} catch (ConnectionPoolException | SQLException e) {
 			throw new DAOException(e);

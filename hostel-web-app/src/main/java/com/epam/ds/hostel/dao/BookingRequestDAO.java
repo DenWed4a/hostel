@@ -10,7 +10,7 @@ public interface BookingRequestDAO {
 	void addNewRequest(BookingRequest request) throws DAOException;
 	BookingRequest getBookingRequestById(int id) throws DAOException;
 	List<BookingRequest> findAllBookingRequest() throws DAOException;
-	List<BookingRequest> findBookingRequest(int userId) throws DAOException;
+	List<BookingRequest> findBookingRequestsByUserId(int userId) throws DAOException;
 	List<BookingRequest> findAllUnconfirmedRequests() throws DAOException; 
 	void updateBookingRequest(BookingRequest bookingRequest) throws DAOException;
 	void deleteBookingRequest(int id) throws DAOException;

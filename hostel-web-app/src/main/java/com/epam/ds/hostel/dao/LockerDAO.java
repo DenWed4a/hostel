@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import com.epam.ds.hostel.dao.exception.DAOException;
-import com.epam.ds.hostel.entity.BedPlace;
 import com.epam.ds.hostel.entity.Locker;
 
 public interface LockerDAO {

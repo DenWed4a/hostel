@@ -2,7 +2,7 @@ package com.epam.ds.hostel.service;
 
 import java.util.List;
 
-import com.epam.ds.hostel.dao.exception.DAOException;
+
 import com.epam.ds.hostel.entity.Bill;
 import com.epam.ds.hostel.service.exception.ServiceException;
 

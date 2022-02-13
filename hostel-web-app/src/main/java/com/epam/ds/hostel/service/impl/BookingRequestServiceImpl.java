@@ -39,12 +39,12 @@ public class BookingRequestServiceImpl implements BookingRequestService{
 	}
 
 	@Override
-	public List<BookingRequest> findBookingRequest(int userId) throws ServiceException {
+	public List<BookingRequest> findBookingRequestsByUserId(int userId) throws ServiceException {
 		DAOFactory factory = DAOFactory.getInstance();
 		BookingRequestDAO bookingRequestDAO = factory.getMySqlBookingRequestDAO();
 		List<BookingRequest> result = new ArrayList<>();
 		try {
-			result =  bookingRequestDAO.findBookingRequest(userId);
+			result =  bookingRequestDAO.findBookingRequestsByUserId(userId);
 		} catch (DAOException e) {
 			throw new ServiceException(e);
 		}

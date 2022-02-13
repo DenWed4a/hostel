@@ -1,7 +1,7 @@
 package com.epam.ds.hostel.service;
 
 import java.util.List;
-
+import java.util.Set;
 
 import com.epam.ds.hostel.entity.User;
 import com.epam.ds.hostel.service.exception.ServiceException;
@@ -23,5 +23,6 @@ public interface UserService {
 	void updateUser(User user) throws ServiceException;
 	
 	void deleteUser(int id) throws ServiceException;
+	Set<User> getAdmins() throws ServiceException;
 
 }

@@ -1,11 +1,13 @@
 package com.epam.ds.hostel.service.impl;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.epam.ds.hostel.dao.DAOFactory;
 import com.epam.ds.hostel.dao.UserDAO;
 import com.epam.ds.hostel.dao.exception.DAOException;
-import com.epam.ds.hostel.dao.impl.MySqlUserDAO;
+
 import com.epam.ds.hostel.entity.User;
 import com.epam.ds.hostel.service.UserService;
 import com.epam.ds.hostel.service.exception.ServiceException;
@@ -118,6 +120,25 @@ public class UserServiceImpl implements UserService{
 			throw new ServiceException(e);
 		}
 		
+	}
+
+	@Override
+	public Set<User> getAdmins() throws ServiceException {
+		DAOFactory factory = DAOFactory.getInstance();
+		UserDAO userDAO = factory.getMySqlUserDAO();
+		Set<User> admins = new HashSet<>();
+		try {
+			List<User> users = userDAO.findAllUsers();
+			for(User element : users) {
+				if(element.getRole().getTitle() == 1 || element.getRole().getTitle() == 2) {
+					admins.add(element);
+				}
+			}
+		} catch (DAOException e) {
+			throw new ServiceException(e);
+		}
+		
+		return admins;
 	}
 
 }

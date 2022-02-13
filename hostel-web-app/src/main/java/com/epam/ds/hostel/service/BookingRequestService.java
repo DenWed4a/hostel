@@ -10,7 +10,7 @@ public interface BookingRequestService {
 	
 	void addNewRequest(BookingRequest request) throws ServiceException;
 	List<BookingRequest> findAllBookingRequest() throws ServiceException;
-	List<BookingRequest> findBookingRequest(int userId) throws ServiceException;
+	List<BookingRequest> findBookingRequestsByUserId(int userId) throws ServiceException;
 	List<BookingRequest> findAllUnconfirmedRequests() throws ServiceException; 
 	void updateBookingRequest(BookingRequest bookingRequest) throws ServiceException;
 	void deleteBookingRequest(int id) throws ServiceException;

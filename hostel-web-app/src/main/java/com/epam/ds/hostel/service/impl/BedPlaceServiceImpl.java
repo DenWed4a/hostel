@@ -3,6 +3,7 @@ package com.epam.ds.hostel.service.impl;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Set;
 
 import com.epam.ds.hostel.dao.BedPlaceDAO;
 import com.epam.ds.hostel.dao.DAOFactory;
@@ -68,8 +69,8 @@ public class BedPlaceServiceImpl implements BedPlaceService{
 	}
 
 	@Override
-	public List<BedPlace> getFreeBedPlaces(Date startDate, Date endDate) throws ServiceException {
-		List<BedPlace> result;
+	public Set<BedPlace> getFreeBedPlaces(Date startDate, Date endDate) throws ServiceException {
+		Set<BedPlace> result;
 		DAOFactory factory = DAOFactory.getInstance();
 		BedPlaceDAO bedPlaceDAO = factory.getBedPlaceDAO();
 		

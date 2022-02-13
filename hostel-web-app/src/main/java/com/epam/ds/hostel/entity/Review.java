@@ -13,54 +13,103 @@ public class Review {
 	private Date date;
 	private String responceToReview;
 	private ReviewStatus status;
+	private String topic;
+	
+	
+	public Review() {
+	}
+
+
 	public int getId() {
 		return id;
 	}
+
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
+
 	public int getConfirmedRequestId() {
 		return confirmedRequestId;
 	}
+
+
 	public void setConfirmedRequestId(int confirmedRequestId) {
 		this.confirmedRequestId = confirmedRequestId;
 	}
+
+
 	public int getModeratorId() {
 		return moderatorId;
 	}
+
+
 	public void setModeratorId(int moderatorId) {
 		this.moderatorId = moderatorId;
 	}
+
+
 	public double getMark() {
 		return mark;
 	}
+
+
 	public void setMark(double mark) {
 		this.mark = mark;
 	}
+
+
 	public String getText() {
 		return text;
 	}
+
+
 	public void setText(String text) {
 		this.text = text;
 	}
+
+
 	public Date getDate() {
 		return date;
 	}
+
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
+
 	public String getResponceToReview() {
 		return responceToReview;
 	}
+
+
 	public void setResponceToReview(String responceToReview) {
 		this.responceToReview = responceToReview;
 	}
+
+
 	public ReviewStatus getStatus() {
 		return status;
 	}
+
+
 	public void setStatus(ReviewStatus status) {
 		this.status = status;
 	}
+
+
+	public String getTopic() {
+		return topic;
+	}
+
+
+	public void setTopic(String topic) {
+		this.topic = topic;
+	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -75,8 +124,11 @@ public class Review {
 		result = prime * result + ((responceToReview == null) ? 0 : responceToReview.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		result = prime * result + ((text == null) ? 0 : text.hashCode());
+		result = prime * result + ((topic == null) ? 0 : topic.hashCode());
 		return result;
 	}
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -111,14 +163,26 @@ public class Review {
 				return false;
 		} else if (!text.equals(other.text))
 			return false;
+		if (topic == null) {
+			if (other.topic != null)
+				return false;
+		} else if (!topic.equals(other.topic))
+			return false;
 		return true;
 	}
+
+
 	@Override
 	public String toString() {
 		return "Review [id=" + id + ", confirmedRequestId=" + confirmedRequestId + ", moderatorId=" + moderatorId
 				+ ", mark=" + mark + ", text=" + text + ", date=" + date + ", responceToReview=" + responceToReview
-				+ ", status=" + status + "]";
+				+ ", status=" + status + ", topic=" + topic + "]";
 	}
+	
+	
+	
+	
+	
 	
 	
 	
