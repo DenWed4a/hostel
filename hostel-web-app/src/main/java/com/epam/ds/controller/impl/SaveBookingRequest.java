@@ -11,14 +11,12 @@ import javax.servlet.http.HttpSession;
 import org.apache.log4j.Logger;
 
 import com.epam.ds.controller.Command;
-import com.epam.ds.hostel.dao.BookingRequestDAO;
-import com.epam.ds.hostel.dao.UserDAO;
 
-import com.epam.ds.hostel.dao.impl.MySqlBookingRequestDAO;
-import com.epam.ds.hostel.dao.impl.MySqlUserDAO;
+
+
 import com.epam.ds.hostel.entity.Bill;
 import com.epam.ds.hostel.entity.BookingRequest;
-import com.epam.ds.hostel.service.BillService;
+
 
 import com.epam.ds.hostel.service.BookingRequestService;
 import com.epam.ds.hostel.service.ServiceFactory;
@@ -30,6 +28,7 @@ public class SaveBookingRequest implements Command{
 	
 	private final String GO_TO_BOOKING_PAGE = "Controller?command=GO_TO_BOOKING_PAGE";
 	private final static Logger log = Logger.getLogger(SaveBookingRequest.class);
+	private final static String GO_TO_ERROR_PAGE = "Controller?command=GO_TO_ERROR_PAGE";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,7 +47,6 @@ public class SaveBookingRequest implements Command{
 		checkInDate = request.getParameter("startDate");
 		checkOutDate = request.getParameter("endDate");
 		
-		System.out.println(numberOfLockers+" "+numberOfplaces+" "+checkInDate+" "+checkOutDate);
 		
 		
 		ServiceFactory factory = ServiceFactory.getInstance();
@@ -57,7 +55,6 @@ public class SaveBookingRequest implements Command{
 		UserService userService = factory.getUserService();
 		
 		BookingRequest bookingRequest = new BookingRequest();
-		BillService billService = factory.getBillService();
 		
 		Bill bill = new Bill();
 		try {
@@ -72,13 +69,15 @@ public class SaveBookingRequest implements Command{
 			bill.setBookingRequestID(id);
 			
 			session.setAttribute("bookingMessage", bookingMessage);
+			response.sendRedirect(GO_TO_BOOKING_PAGE);
 			
 		} catch (ServiceException e) {
 			log.error(e);
+			response.sendRedirect(GO_TO_ERROR_PAGE);
 		}
 		
 		
-		response.sendRedirect(GO_TO_BOOKING_PAGE);
+		
 		
 		
 	}

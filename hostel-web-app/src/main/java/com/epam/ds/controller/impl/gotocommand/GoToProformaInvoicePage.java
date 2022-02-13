@@ -7,11 +7,11 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 import com.epam.ds.controller.Command;
 import com.epam.ds.util.BillTotalCalculator;
-import com.mysql.cj.Session;
+
 
 public class GoToProformaInvoicePage implements Command{
 	private final static String GO_TO_PROFORMA_INVOICE_PAGE = "/WEB-INF/jsp/proformaInvoicePage.jsp";

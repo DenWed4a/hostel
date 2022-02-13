@@ -18,6 +18,7 @@ public class LogOutCommand implements Command{
 		HttpSession session  = request.getSession();
 		session.removeAttribute("login");
 		session.removeAttribute("role");
+		session.removeAttribute("userId");
 		RequestDispatcher dispatcher = request.getRequestDispatcher(goToIndexPage);
 		dispatcher.forward(request, response);
 		

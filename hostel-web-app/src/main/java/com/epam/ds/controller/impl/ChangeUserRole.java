@@ -18,6 +18,7 @@ import com.epam.ds.hostel.service.exception.ServiceException;
 public class ChangeUserRole implements Command{
 	private final static Logger log = Logger.getLogger(ChangeUserRole.class); 
 	private final static String GO_TO_USER_LIST = "Controller?command=GO_TO_USER_LIST";
+	private final static String GO_TO_ERROR_PAGE = "Controller?command=GO_TO_ERROR_PAGE";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -33,7 +34,7 @@ public class ChangeUserRole implements Command{
 			response.sendRedirect(GO_TO_USER_LIST);
 		} catch (NumberFormatException | ServiceException e) {
 			log.error(e);
-			e.printStackTrace();
+			response.sendRedirect(GO_TO_ERROR_PAGE);
 		}
 		
 	}

@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
+
 import com.epam.ds.controller.Command;
 import com.epam.ds.hostel.dao.exception.DAOException;
 import com.epam.ds.hostel.dao.impl.MySqlUserDAO;
@@ -17,6 +19,7 @@ import com.epam.ds.hostel.entity.UserDetail;
 public class GoToChangeAccauntInfo implements Command{
 	
 	private final static String goToChangeAccauntInfo ="/WEB-INF/jsp/changeAccauntInfoPage.jsp";
+	private final static Logger log = Logger.getLogger(GoToChangeAccauntInfo.class);
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -36,8 +39,8 @@ public class GoToChangeAccauntInfo implements Command{
 		RequestDispatcher dispatcher = request.getRequestDispatcher(goToChangeAccauntInfo);
 		dispatcher.forward(request, response);
 		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e);
+			
 		}
 		
 	}

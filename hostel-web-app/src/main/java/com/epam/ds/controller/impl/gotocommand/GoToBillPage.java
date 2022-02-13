@@ -24,6 +24,7 @@ import com.epam.ds.util.BillTotalCalculator;
 public class GoToBillPage implements Command{
 	private final static Logger log = Logger.getLogger(GoToBillPage.class);
 	private final static String GO_TO_BILL_PAGE = "/WEB-INF/jsp/billPage.jsp";
+	private final static String GO_TO_ERROR_PAGE = "Controller?command=GO_TO_ERROR_PAGE";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -51,14 +52,16 @@ public class GoToBillPage implements Command{
 			BillTotalCalculator billTotalCalculator = new BillTotalCalculator();			
 			request.setAttribute("calculator", billTotalCalculator);
 			
+			RequestDispatcher dispatcher = request.getRequestDispatcher(GO_TO_BILL_PAGE);
+			dispatcher.forward(request, response);
+			
 			
 		} catch (ServiceException e) {
 			log.error(e);
-			e.printStackTrace();
+			response.sendRedirect(GO_TO_ERROR_PAGE);
 		}
 		
-		RequestDispatcher dispatcher = request.getRequestDispatcher(GO_TO_BILL_PAGE);
-		dispatcher.forward(request, response);
+		
 	}
 
 }

@@ -9,15 +9,16 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.epam.ds.controller.Command;
+import com.epam.ds.controller.AdminCommand;
 import com.epam.ds.hostel.entity.BookingRequest;
 import com.epam.ds.hostel.service.BookingRequestService;
 import com.epam.ds.hostel.service.ServiceFactory;
 import com.epam.ds.hostel.service.exception.ServiceException;
 
-public class GoToChangeBookingRequest implements Command{
+public class GoToChangeBookingRequest implements  AdminCommand{
 	private final static Logger log = Logger.getLogger(GoToChangeBookingRequest.class);
 	private final static String GO_TO_CHANGE_BOOKING_REQUEST_PAGE = "/WEB-INF/jsp/changeBookingRequestPage.jsp";
+	private final static String GO_TO_ERROR_PAGE = "Controller?command=GO_TO_ERROR_PAGE";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,7 +36,7 @@ public class GoToChangeBookingRequest implements Command{
 			//bService.updateBookingRequest(bookingRequest);
 		} catch (NumberFormatException | ServiceException e) {
 			log.error(e);
-			response.sendRedirect("Controller?command=GO_TO_ERROR_PAGE");
+			response.sendRedirect(GO_TO_ERROR_PAGE);
 			e.printStackTrace();
 		}
 		

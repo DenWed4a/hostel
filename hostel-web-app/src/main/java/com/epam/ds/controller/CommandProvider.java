@@ -3,9 +3,12 @@ package com.epam.ds.controller;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.epam.ds.controller.impl.AddNewLocker;
+import com.epam.ds.controller.impl.AddNewPlace;
 import com.epam.ds.controller.impl.ChangeLocal;
 import com.epam.ds.controller.impl.ChangeUserRole;
 import com.epam.ds.controller.impl.DeleteBookingRequest;
+import com.epam.ds.controller.impl.DeleteReviewCommand;
 import com.epam.ds.controller.impl.LogOutCommand;
 import com.epam.ds.controller.impl.LoginationCommand;
 import com.epam.ds.controller.impl.RegistrationCommand;
@@ -13,8 +16,10 @@ import com.epam.ds.controller.impl.SaveAccauntInfoChangesCommand;
 import com.epam.ds.controller.impl.SaveBookingChangesCommand;
 import com.epam.ds.controller.impl.SaveBookingRequest;
 import com.epam.ds.controller.impl.SaveConfirmedRequest;
+import com.epam.ds.controller.impl.SaveReview;
 import com.epam.ds.controller.impl.SaveUserImageCommand;
 import com.epam.ds.controller.impl.UpdateBillPayment;
+
 import com.epam.ds.controller.impl.gotocommand.GoToAccauntPage;
 import com.epam.ds.controller.impl.gotocommand.GoToBillPage;
 import com.epam.ds.controller.impl.gotocommand.GoToBookingPage;
@@ -22,6 +27,7 @@ import com.epam.ds.controller.impl.gotocommand.GoToBookingProcessingPage;
 import com.epam.ds.controller.impl.gotocommand.GoToBookingRequestsPage;
 import com.epam.ds.controller.impl.gotocommand.GoToChangeAccauntInfo;
 import com.epam.ds.controller.impl.gotocommand.GoToChangeBookingRequest;
+import com.epam.ds.controller.impl.gotocommand.GoToContactsPage;
 import com.epam.ds.controller.impl.gotocommand.GoToErrorPage;
 import com.epam.ds.controller.impl.gotocommand.GoToGalleryPage;
 import com.epam.ds.controller.impl.gotocommand.GoToIndexPage;
@@ -31,10 +37,10 @@ import com.epam.ds.controller.impl.gotocommand.GoToManagementPage;
 import com.epam.ds.controller.impl.gotocommand.GoToPlacesListPage;
 import com.epam.ds.controller.impl.gotocommand.GoToProformaInvoicePage;
 import com.epam.ds.controller.impl.gotocommand.GoToRegistrationPage;
+import com.epam.ds.controller.impl.gotocommand.GoToReviewForm;
 import com.epam.ds.controller.impl.gotocommand.GoToReviewsPage;
 import com.epam.ds.controller.impl.gotocommand.GoToUserInfoPage;
 import com.epam.ds.controller.impl.gotocommand.GoToUserList;
-import com.epam.ds.controller.impl.gotocommand.GoTo_Test;
 
 public final class CommandProvider {
 	private final Map<String, Command> commands = new HashMap<>();
@@ -58,7 +64,6 @@ public final class CommandProvider {
 		commands.put("GO_TO_PROFORMA_INVOICE_PAGE", new GoToProformaInvoicePage());
 		commands.put("GO_TO_USER_INFO_PAGE", new GoToUserInfoPage());
 		commands.put("GO_TO_BOOKING_PROCESSING_PAGE", new GoToBookingProcessingPage());
-		commands.put("GO_TO_TEST", new GoTo_Test());
 		commands.put("SAVE_CONFIRMED_REQUEST", new SaveConfirmedRequest());
 		commands.put("DELETE_BOOKING_REQUEST", new DeleteBookingRequest());
 		commands.put("GO_TO_USER_LIST", new GoToUserList());
@@ -72,6 +77,13 @@ public final class CommandProvider {
 		commands.put("GO_TO_LOCKERS_LIST_PAGE", new GoToLockersListPage());
 		commands.put("GO_TO_GALLERY_PAGE", new GoToGalleryPage());
 		commands.put("GO_TO_REVIEWS_PAGE", new GoToReviewsPage());
+		commands.put("SAVE_REVIEW", new SaveReview());
+		commands.put("GO_TO_REVIEW_FORM", new GoToReviewForm());
+		commands.put("DELETE_REVIEW", new DeleteReviewCommand());
+		commands.put("GO_TO_CONTACTS_PAGE", new GoToContactsPage());
+
+		commands.put("ADD_NEW_PLACE", new AddNewPlace());
+		commands.put("ADD_NEW_LOCKER", new AddNewLocker());
 	}
 	
 	public final Command getCommand(String commandName) {

@@ -1,9 +1,9 @@
 package com.epam.ds.controller.impl.gotocommand;
 
 import java.io.IOException;
-import java.io.ObjectInputFilter.Status;
 
-import java.util.ArrayList;
+
+
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -13,7 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import com.epam.ds.controller.Command;
+import com.epam.ds.controller.AdminCommand;
+
 import com.epam.ds.hostel.entity.BookingRequest;
 import com.epam.ds.hostel.entity.ConfirmedRequest;
 import com.epam.ds.hostel.entity.status.EntityStatus.ConfirmedRequestStatus;
@@ -22,9 +23,10 @@ import com.epam.ds.hostel.service.ConfirmedRequestService;
 import com.epam.ds.hostel.service.ServiceFactory;
 import com.epam.ds.hostel.service.exception.ServiceException;
 
-public class GoToBookingRequestsPage implements Command{
+public class GoToBookingRequestsPage implements AdminCommand{
 	private final static Logger log = Logger.getLogger(GoToBookingRequestsPage.class);
-	private final static String goToRequestsPage = "/WEB-INF/jsp/BookingRequestsPage.jsp";
+	private final static String GO_TO_REQUESTS_PAGE = "/WEB-INF/jsp/bookingRequestsPage.jsp";
+	private final static String GO_TO_ERROR_PAGE = "Controller?command=GO_TO_ERROR_PAGE";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -46,33 +48,27 @@ public class GoToBookingRequestsPage implements Command{
 		String confirmedRequestId = request.getParameter("confirmed_request_id");
 		try {
 			
-			if(newStatus != null) {
-				
+			if(newStatus != null) {			
 				ConfirmedRequest confirmedRequest = confirmedRequestService.findConfirmedRequest(Integer.parseInt(confirmedRequestId));				
 				confirmedRequest.setStatus(ConfirmedRequestStatus.values()[Integer.parseInt(newStatus)]);								
-				confirmedRequestService.updateConfirmedRequest(confirmedRequest);
-				
+				confirmedRequestService.updateConfirmedRequest(confirmedRequest);				
 			}
 			List<BookingRequest> requests = service.findAllBookingRequest();
 			request.setAttribute("requests", requests);
 			
 			List<ConfirmedRequest> confirmedRequests = confirmedRequestService.findAllRequests();
 			request.setAttribute("confirmedRequests", confirmedRequests);
-			/*List<BookingRequest> bookingConfirmedRequests = new ArrayList<>();
-			for(int i = 0; i < confirmedRequests.size(); i++) {
-				bookingConfirmedRequests.add(service.getBookingRequestById(confirmedRequests.get(i).getId()));
-			}
-			request.setAttribute("bcRuquests", bookingConfirmedRequests);*/
 			
+			RequestDispatcher dispatcher = request.getRequestDispatcher(GO_TO_REQUESTS_PAGE);
+			dispatcher.forward(request, response);
 			
 		} catch (ServiceException e) {
 			log.error(e);
-			e.printStackTrace();
+			response.sendRedirect(GO_TO_ERROR_PAGE);
 		}
 		
-		System.out.println("запрос отправлен");
-		RequestDispatcher dispatcher = request.getRequestDispatcher(goToRequestsPage);
-		dispatcher.forward(request, response);
+		
+		
 		
 	}
 

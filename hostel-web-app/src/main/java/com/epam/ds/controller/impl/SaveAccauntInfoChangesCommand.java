@@ -2,14 +2,14 @@ package com.epam.ds.controller.impl;
 
 import java.io.IOException;
 import java.sql.Date;
-import java.util.PrimitiveIterator;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
-import org.eclipse.jdt.internal.compiler.ast.AND_AND_Expression;
+
 
 import com.epam.ds.controller.Command;
 import com.epam.ds.hostel.entity.User;

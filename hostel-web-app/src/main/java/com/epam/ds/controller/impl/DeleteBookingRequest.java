@@ -16,6 +16,8 @@ import com.epam.ds.hostel.service.exception.ServiceException;
 public class DeleteBookingRequest implements Command{
 	private final static Logger log = Logger.getLogger(DeleteBookingRequest.class);
 	private final static String GO_TO_NEW_BOOKING_REQUESTS = "Controller?command=GO_TO_BOOKING_REQUESTS_PAGE";
+	private final static String GO_TO_ERROR_PAGE = "Controller?command=GO_TO_ERROR_PAGE";
+	
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -23,14 +25,15 @@ public class DeleteBookingRequest implements Command{
 		BookingRequestService service = ServiceFactory.getInstance().getBookingRequestService();
 		try {
 			service.deleteBookingRequest(Integer.parseInt(bookingRequestId));
+			response.sendRedirect(GO_TO_NEW_BOOKING_REQUESTS);
 		} catch (NumberFormatException e) {
 			log.error(e);
-			response.sendRedirect("Controller?command=GO_TO_ERROR_PAGE");
+			response.sendRedirect(GO_TO_ERROR_PAGE);
 		} catch (ServiceException e) {
 			log.error(e);
-			response.sendRedirect("Controller?command=GO_TO_ERROR_PAGE");
+			response.sendRedirect(GO_TO_ERROR_PAGE);
 		}
-		response.sendRedirect(GO_TO_NEW_BOOKING_REQUESTS);
+		
 		
 		
 	}

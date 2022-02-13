@@ -1,7 +1,7 @@
 package com.epam.ds.controller.impl;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,18 +13,17 @@ import org.apache.log4j.Logger;
 
 import com.epam.ds.controller.Command;
 import com.epam.ds.hostel.entity.User;
-import com.epam.ds.hostel.main.Main3;
+
 import com.epam.ds.hostel.service.ServiceFactory;
 import com.epam.ds.hostel.service.UserRoleService;
 import com.epam.ds.hostel.service.UserService;
 import com.epam.ds.hostel.service.exception.ServiceException;
-import com.epam.ds.hostel.service.impl.UserRoleServiceImpl;
-import com.epam.ds.hostel.service.impl.UserServiceImpl;
-import com.mysql.cj.Session;
-import com.mysql.cj.log.Log;
+
 
 public class LoginationCommand implements Command{
 	private final static Logger log = Logger.getLogger(LoginationCommand.class);
+	private final static String GO_TO_ERROR_PAGE = "Controller?command=GO_TO_ERROR_PAGE";
+	private final static String GO_TO_INDEX_PAGE = "Controller?command=GO_TO_INDEX_PAGE";
 	
 
 	@Override
@@ -56,17 +55,15 @@ public class LoginationCommand implements Command{
 				session.setAttribute("role", role);
 				session.setAttribute("login", login);
 				session.setAttribute("userId", userId);
+				response.sendRedirect(GO_TO_INDEX_PAGE);
 			}
 		} catch (ServiceException e) {
 			log.log(Level.ERROR, e);
-			response.sendRedirect("Controller?command=GO_TO_ERROR_PAGE");
+			response.sendRedirect(GO_TO_ERROR_PAGE);
 		}
 		
-		if(loginIsValid) {
-			
-			response.sendRedirect("Controller?command=GO_TO_INDEX_PAGE");
-		}else {
-			response.sendRedirect("Controller?command=GO_TO_ERROR_PAGE");
+		if(!loginIsValid) {
+			response.sendRedirect(GO_TO_ERROR_PAGE);
 		}
 		
 		

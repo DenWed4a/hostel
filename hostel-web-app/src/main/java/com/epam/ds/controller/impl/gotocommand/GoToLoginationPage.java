@@ -1,42 +1,51 @@
 package com.epam.ds.controller.impl.gotocommand;
 
 import java.io.IOException;
-import java.util.Enumeration;
+
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
+
+import org.apache.log4j.Logger;
 
 import com.epam.ds.controller.Command;
-import com.epam.ds.hostel.dao.UserDAO;
-import com.epam.ds.hostel.dao.exception.DAOException;
-import com.epam.ds.hostel.dao.impl.MySqlUserDAO;
+
 import com.epam.ds.hostel.entity.User;
 import com.epam.ds.hostel.entity.UserDetail;
+import com.epam.ds.hostel.service.ServiceFactory;
+import com.epam.ds.hostel.service.UserService;
+import com.epam.ds.hostel.service.exception.ServiceException;
 
 public class GoToLoginationPage implements Command{
 	
-	private final static String goToLogination = "/WEB-INF/jsp/logination.jsp";
+	private final static String GO_TO_LOGINATION_PAGE = "/WEB-INF/jsp/logination.jsp";
+	private final static Logger log = Logger.getLogger(GoToLoginationPage.class);
+	private final static String GO_TO_ERROR_PAGE = "Controller?command=GO_TO_ERROR_PAGE";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-
-		UserDAO userDAO = new MySqlUserDAO();
+		ServiceFactory factory = ServiceFactory.getInstance();
+		UserService userService = factory.getUserService();
+		
 		User user;
 		try {
-			user = userDAO.findById(1);
+			user = userService.findById(1);
 			UserDetail detail = user.getDetail();
 			request.setAttribute("user", user);
 			request.setAttribute("detail", detail);
-		} catch (DAOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
+			RequestDispatcher dispatcher = request.getRequestDispatcher(GO_TO_LOGINATION_PAGE);
+			dispatcher.forward(request, response);
+		} catch (ServiceException e) {
+			log.error(e);
+			response.sendRedirect(GO_TO_ERROR_PAGE);
+			
 		}
-		RequestDispatcher dispatcher = request.getRequestDispatcher(goToLogination);
-		dispatcher.forward(request, response);
+		
 		
 		
 	}

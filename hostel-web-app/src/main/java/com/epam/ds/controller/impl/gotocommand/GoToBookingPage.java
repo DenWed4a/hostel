@@ -8,10 +8,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.epam.ds.controller.Command;
-import com.epam.ds.controller.CommandProvider;
 
-public class GoToBookingPage implements Command{
+import com.epam.ds.controller.UsersCommand;
+
+public class GoToBookingPage implements UsersCommand{
 	private final static String goToBookingPage = "/WEB-INF/jsp/bookingPage.jsp";
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -22,10 +22,10 @@ public class GoToBookingPage implements Command{
 		if(login!=null) {
 			RequestDispatcher dispatcher = request.getRequestDispatcher(goToBookingPage);
 			dispatcher.forward(request, response);
-		}else {
+		}/*else {
 			CommandProvider commandProvider  = new CommandProvider();
 			commandProvider.getCommand("GO_TO_LOGINATION_PAGE").execute(request, response);
-		}
+		}*/
 		
 
 		

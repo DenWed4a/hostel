@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.util.Calendar;
 
-import javax.servlet.RequestDispatcher;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,8 +21,8 @@ import com.epam.ds.hostel.service.exception.ServiceException;
 
 public class SaveConfirmedRequest implements Command {
 	private final static Logger log = Logger.getLogger(SaveConfirmedRequest.class);
-	private final static String GO_TO_BOOKING_REQUEST_PAGE = "WEB-INF/jsp/BookingRequestsPage.jsp";
-	private final static String GO_TO_BOOKING_REQUEST_PAGE2 = "Controller?command=GO_TO_BOOKING_REQUESTS_PAGE";
+	private final static String GO_TO_ERROR_PAGE = "Controller?command=GO_TO_ERROR_PAGE";
+	private final static String GO_TO_BOOKING_REQUEST_PAGE = "Controller?command=GO_TO_BOOKING_REQUESTS_PAGE";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -57,18 +57,16 @@ public class SaveConfirmedRequest implements Command {
 		confirmedRequest.setBillId(Integer.parseInt(billId));
 		confirmedRequest.setConfirmationDate(confirmationDate);
 		confirmedRequest.setId(bookingRequestId);
-
+		response.sendRedirect(GO_TO_BOOKING_REQUEST_PAGE);
 		try {
 			confirmedRequestService.addConfirmedRequest(confirmedRequest, bedPlacesInt, lockersInt);
 		} catch (ServiceException e) {
 			log.error(e);
-			response.sendRedirect("Controller?command=GO_TO_ERROR_PAGE");
+			response.sendRedirect(GO_TO_ERROR_PAGE);
 		}
 
-		// RequestDispatcher dispatcher =
-		// request.getRequestDispatcher(GO_TO_BOOKING_REQUEST_PAGE);
-		// dispatcher.forward(request, response);
-		response.sendRedirect(GO_TO_BOOKING_REQUEST_PAGE2);
+		
+		
 
 	}
 

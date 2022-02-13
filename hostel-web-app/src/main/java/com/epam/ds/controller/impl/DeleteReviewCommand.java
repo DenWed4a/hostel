@@ -9,33 +9,27 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 
 import com.epam.ds.controller.Command;
-import com.epam.ds.hostel.entity.Bill;
-import com.epam.ds.hostel.service.BillService;
+import com.epam.ds.hostel.service.ReviewService;
 import com.epam.ds.hostel.service.ServiceFactory;
 import com.epam.ds.hostel.service.exception.ServiceException;
 
-public class UpdateBillPayment implements Command{
-	private final static Logger log = Logger.getLogger(UpdateBillPayment.class); 
+public class DeleteReviewCommand implements Command{
+	private final static Logger log = Logger.getLogger(DeleteBookingRequest.class);
 	private final static String GO_TO_ERROR_PAGE = "Controller?command=GO_TO_ERROR_PAGE";
-	private final static String GO_TO_CONFIRMED_REQUESTS = "Controller?command=GO_TO_BOOKING_REQUESTS_PAGE&table=confirmed&button=active";
+	private final static String GO_TO_REVIEWS_PAGE = "Controller?command=GO_TO_REVIEWS_PAGE";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String billId = request.getParameter("bill_id");
 		ServiceFactory factory = ServiceFactory.getInstance();
-		BillService billService = factory.getBillService();
-		
-		Bill bill;
+		ReviewService reviewService = factory.getReviewService();
+		String reviewId = request.getParameter("review_id");
 		try {
-			bill = billService.findBill(Integer.parseInt(billId));
-			billService.confirmPayment(bill);
-			response.sendRedirect(GO_TO_CONFIRMED_REQUESTS);
-		}  catch (ServiceException | NumberFormatException e) {
+			reviewService.deleteReviewById(Integer.parseInt(reviewId));
+			response.sendRedirect(GO_TO_REVIEWS_PAGE);
+		} catch (NumberFormatException | ServiceException e) {
 			log.error(e);
 			response.sendRedirect(GO_TO_ERROR_PAGE);
 		}
-		
-		
 		
 	}
 

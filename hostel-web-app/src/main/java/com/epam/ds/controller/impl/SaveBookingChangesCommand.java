@@ -43,14 +43,15 @@ public class SaveBookingChangesCommand implements Command{
 			bookingRequest.setNumberOfLockers(Integer.parseInt(numberOfLocker));
 			bService.updateBookingRequest(bookingRequest);
 			session.removeAttribute("booking_request");
-			//request.setAttribute("done", "");
+			
+			response.sendRedirect(GO_TO_BOOKING_REQUESTS_PAGE);
 		} catch (NumberFormatException | ServiceException e) {
 			log.error(e);
 			response.sendRedirect(GO_TO_ERROR_PAGE);
 			e.printStackTrace();
 		}
 		
-		response.sendRedirect(GO_TO_BOOKING_REQUESTS_PAGE);
+		
 		
 	}
 

@@ -34,8 +34,13 @@ public class Controller extends HttpServlet {
 			throws IOException, ServletException {
 
 		String commandName = request.getParameter(COMMAND);
+		String redirectCommand = (String)request.getAttribute("redirect");
+		if(redirectCommand!=null) {
+			provider.getCommand(redirectCommand).execute(request, response);
+		}
+		else {
 		provider.getCommand(commandName).execute(request, response);
-
+		}
 	}
 
 }

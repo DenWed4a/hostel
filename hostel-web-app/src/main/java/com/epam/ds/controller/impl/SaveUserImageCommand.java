@@ -5,14 +5,15 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.tomcat.util.http.fileupload.FileItem;
+import org.apache.log4j.Logger;
+
 import org.apache.tomcat.util.http.fileupload.FileItemIterator;
 import org.apache.tomcat.util.http.fileupload.FileItemStream;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
@@ -25,6 +26,9 @@ import com.epam.ds.hostel.service.UserService;
 import com.epam.ds.hostel.service.exception.ServiceException;
 
 public class SaveUserImageCommand implements Command{
+	private final static Logger log = Logger.getLogger(SaveUserImageCommand.class);
+	private final static String GO_TO_ERROR_PAGE = "Controller?command=GO_TO_ERROR_PAGE";
+	private final static String GO_TO_ACCAUNT_PAGE = "Controller?command=GO_TO_ACCAUNT_PAGE";
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,12 +48,8 @@ public class SaveUserImageCommand implements Command{
 				FileItemIterator iter = upload.getItemIterator(request);								
 				while (iter.hasNext()) {
 					FileItemStream item = iter.next();
-					String name = item.getFieldName();
 					InputStream stream = item.openStream();
-					/*if (item.isFormField()) {
-						System.out.println("Form field " + name + " with value " + Streams.asString(stream) + " detected.");
-					} else*/if (!item.isFormField()){
-						System.out.println("File field " + name + " with file name " + item.getName() + " detected.");
+					if (!item.isFormField()){						
 						fileName = item.getName();
 						BufferedInputStream bStream = new BufferedInputStream(stream);
 						byte[] array = bStream.readAllBytes();
@@ -72,11 +72,11 @@ public class SaveUserImageCommand implements Command{
 				userService.updateUserDetail(user);
 			}
 			
-			response.sendRedirect("Controller?command=GO_TO_ACCAUNT_PAGE");
+			response.sendRedirect(GO_TO_ACCAUNT_PAGE);
 			
 		} catch (ServiceException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error(e);
+			response.sendRedirect(GO_TO_ERROR_PAGE);
 		}
 		
 		
